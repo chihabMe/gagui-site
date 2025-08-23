@@ -103,16 +103,16 @@ export function BlogSection({ posts = [] }: BlogSectionProps) {
   return (
     <section
       id="blog"
-      className="py-32 bg-gradient-to-b from-background via-card/30 to-background relative overflow-hidden"
+      className="py-32 bg-gradient-to-b from-background via-card/30 to-background dark:from-background dark:via-card/30 dark:to-background relative overflow-hidden"
     >
       {/* Cyberpunk Grid Background */}
-      <div className="absolute inset-0 cyber-grid opacity-20"></div>
+      <div className="absolute inset-0 cyber-grid opacity-20 dark:opacity-15"></div>
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl floating-animation"></div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 dark:bg-primary/5 rounded-full blur-3xl floating-animation"></div>
         <div
-          className="absolute bottom-20 right-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl floating-animation"
+          className="absolute bottom-20 right-20 w-80 h-80 bg-accent/10 dark:bg-accent/5 rounded-full blur-3xl floating-animation"
           style={{ animationDelay: "2s" }}
         ></div>
       </div>

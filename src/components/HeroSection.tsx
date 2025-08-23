@@ -79,9 +79,9 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background">
-        <div className="absolute inset-0 bg-gradient-mesh opacity-40"></div>
-        <div className="absolute inset-0 cyber-grid opacity-20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background dark:from-background dark:via-card dark:to-background">
+        <div className="absolute inset-0 bg-gradient-mesh opacity-40 dark:opacity-30"></div>
+        <div className="absolute inset-0 cyber-grid opacity-20 dark:opacity-15"></div>
       </div>
 
       {/* Animated Particles */}

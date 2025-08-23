@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react"; // IGNORE
+import { ThemeToggle } from "@/components/ThemeToggle";
 const navigation = [
   { name: "Accueil", href: "/", isRoute: true },
   { name: "Chaînes", href: "/channels", isRoute: true },
@@ -52,8 +53,8 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   return (
-    <header className="glass-effect backdrop-blur-lg sticky top-0 z-50 w-full border-b border-primary/20">
-      <div className="container mx-auto">
+    <header className="sticky top-0 z-50 bg-background/95 dark:bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/40 dark:border-border/40">
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <nav
           className="flex items-center justify-between p-3 md:p-4 lg:px-8"
           aria-label="Global"
@@ -81,7 +82,7 @@ export function Header() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background"
               onClick={() => setMobileMenuOpen(true)}
               aria-expanded={mobileMenuOpen}
               aria-label="Ouvrir le menu principal"
@@ -97,7 +98,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-sm xl:text-base font-semibold leading-6 text-foreground hover:text-primary transition-colors whitespace-nowrap"
+                  className="text-sm xl:text-base font-semibold leading-6 text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors whitespace-nowrap"
                 >
                   {item.name}
                 </Link>
@@ -105,7 +106,7 @@ export function Header() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm xl:text-base font-semibold leading-6 text-foreground hover:text-primary transition-colors whitespace-nowrap"
+                  className="text-sm xl:text-base font-semibold leading-6 text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors whitespace-nowrap"
                 >
                   {item.name}
                 </a>
@@ -114,7 +115,8 @@ export function Header() {
           </div>
 
           {/* Desktop CTA Button */}
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
+            <ThemeToggle />
             <Link href="/#tarifs">
               <Button className="bg-gradient-primary hover:opacity-90 transition-all text-sm xl:text-base px-6 xl:px-8 py-3 shadow-cyber pulse-glow relative overflow-hidden">
                 <span className="relative z-10">Accéder à l&apos;Univers</span>
@@ -135,7 +137,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-background/80"
+              className="fixed inset-0 z-40 bg-background/80 dark:bg-background/80"
               onClick={() => setMobileMenuOpen(false)}
               aria-hidden="true"
             />
@@ -151,16 +153,16 @@ export function Header() {
                 stiffness: 200,
                 duration: 0.4,
               }}
-              className="fixed inset-0 h-[100vh] z-50 overflow-y-auto bg-white transform"
+              className="fixed inset-0 h-[100vh] z-50 overflow-y-auto bg-background/95 dark:bg-background/95 backdrop-blur-lg transform"
             >
               {/* Mobile menu header - Only close button */}
-              <div className="flex items-center justify-end px-6 pt-6 md:pt-8 pb-2 md:pb-4">
+              <div className="flex items-center justify-end px-6 pt-6 md:pt-8 pb-2 md:pb-4 border-b border-border/20 dark:border-border/20">
                 <motion.button
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.1, duration: 0.2 }}
                   type="button"
-                  className="-m-2.5 rounded-md p-2.5 text-foreground hover:bg-muted/50 transition-colors"
+                  className="-m-2.5 rounded-full p-3 text-foreground dark:text-foreground hover:bg-primary/10 dark:hover:bg-primary/10 transition-all duration-200 border border-border/20 dark:border-border/20"
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="Fermer le menu"
                 >
@@ -168,14 +170,21 @@ export function Header() {
                 </motion.button>
               </div>
 
+              {/* Background decoration */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 left-10 w-32 h-32 bg-primary/5 dark:bg-primary/10 rounded-full blur-2xl"></div>
+                <div className="absolute bottom-1/4 right-10 w-40 h-40 bg-accent/5 dark:bg-accent/10 rounded-full blur-2xl"></div>
+              </div>
+
               {/* Mobile menu content */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.3 }}
-                className="flex  flex-col justify-center h-[calc(100vh-120px)] px-6"
+                className="flex flex-col justify-center h-[calc(100vh-120px)] px-6 relative z-10"
               >
-                <div className="space-y-1  max-w-sm mx-auto w-full">
+                <div className="space-y-2 max-w-sm mx-auto w-full">
+                  {}
                   {/* Navigation Links */}
                   {navigation.map((item, index) => {
                     const Component = item.isRoute ? Link : "a";
@@ -191,7 +200,7 @@ export function Header() {
                       >
                         <Component
                           href={item.href}
-                          className="block hover:underline  transition-all duration-200 px-4 py-3 md:py-6 text-xl font-medium text-foreground text-center hover:text-primary"
+                          className="block transition-all duration-300 px-6 py-4 text-xl font-semibold text-foreground dark:text-foreground text-center hover:text-primary dark:hover:text-primary hover:bg-primary/5 dark:hover:bg-primary/10 rounded-xl border border-transparent hover:border-primary/20 dark:hover:border-primary/30 backdrop-blur-sm"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           {item.name}
@@ -199,6 +208,21 @@ export function Header() {
                       </motion.div>
                     );
                   })}
+
+                  {/* Theme Toggle */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.2 + navigation.length * 0.05 + 0.05,
+                      duration: 0.3,
+                    }}
+                    className="py-4 flex justify-center"
+                  >
+                    <div className="p-2 rounded-xl bg-card/50 dark:bg-card/50 border border-border/20 dark:border-border/20 backdrop-blur-sm">
+                      <ThemeToggle />
+                    </div>
+                  </motion.div>
 
                   {/* Mobile CTA Button */}
                   <motion.div
@@ -208,14 +232,15 @@ export function Header() {
                       delay: 0.2 + navigation.length * 0.05 + 0.1,
                       duration: 0.3,
                     }}
-                    className="py-2 md:pt-12 mt-6"
+                    className="py-2 mt-6"
                   >
                     <Link href="/#tarifs">
                       <Button
-                        className="bg-gradient-to-r cursor-pointer transition-all duration-200 from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 font-semibold px-8 py-6 text-lg shadow-lg w-full h-12 rounded-md"
+                        className="bg-gradient-primary hover:shadow-glow transition-all duration-300 text-white font-bold px-8 py-6 text-lg shadow-lg w-full rounded-xl relative overflow-hidden group"
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        S&apos;abonner
+                        <span className="relative z-10">S&apos;abonner</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       </Button>
                     </Link>
                   </motion.div>
