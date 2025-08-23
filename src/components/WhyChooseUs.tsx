@@ -1,20 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import {
-  Tv,
-  Headphones,
-  Smartphone,
-  HelpCircle,
-  Zap,
-  Users,
-  Brain,
-  Atom,
-  Orbit,
-  Cpu,
-  Network,
-  Eye,
-} from "lucide-react";
+import { Zap, Brain, Atom, Orbit, Cpu, Network, Eye } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 
@@ -129,8 +116,8 @@ export function WhyChooseUs() {
             Réseau Neural Avancé
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Découvrez l'avenir du streaming avec notre technologie quantique et
-            expérience immersive de nouvelle génération
+            Découvrez l&apos;avenir du streaming avec notre technologie
+            quantique et expérience immersive de nouvelle génération
           </p>
         </motion.div>
 

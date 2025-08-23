@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react"; // IGNORE
-import Image from "next/image";
 const navigation = [
   { name: "Accueil", href: "/", isRoute: true },
   { name: "Chaînes", href: "/channels", isRoute: true },
@@ -61,15 +60,19 @@ export function Header() {
         >
           {/* Logo Section */}
           <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-              <Image
-                src="/logo.png"
-                alt="IPTV Pro Logo"
-                width={120}
-                height={120}
-                className="h-12 w-auto sm:h-16 md:h-20 lg:h-24  xl:h-28 2xl:h-32 max-w-full"
-                priority
-              />
+            <Link
+              href="/"
+              className="-m-1.5 p-1.5 flex items-center group transition-all duration-300"
+            >
+              <div className="relative flex items-center">
+                <span className="text-2xl xl:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(0,255,255,0.3)]">
+                  Media
+                </span>
+                <span className="text-2xl xl:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent ml-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.3)]">
+                  IPTV
+                </span>
+                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 shadow-[0_0_20px_rgba(0,255,255,0.3)]"></div>
+              </div>
             </Link>
           </div>
 
@@ -114,7 +117,7 @@ export function Header() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link href="/#tarifs">
               <Button className="bg-gradient-primary hover:opacity-90 transition-all text-sm xl:text-base px-6 xl:px-8 py-3 shadow-cyber pulse-glow relative overflow-hidden">
-                <span className="relative z-10">Accéder à l'Univers</span>
+                <span className="relative z-10">Accéder à l&apos;Univers</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 animate-pulse"></div>
               </Button>
             </Link>

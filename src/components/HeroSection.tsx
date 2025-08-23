@@ -1,64 +1,55 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Play,
-  Zap,
-  Shield,
-  Globe,
-  Star,
-  Rocket,
-  Eye,
-  Wifi,
-} from "lucide-react";
+import { Play, Zap, Shield, Globe, Star, Tv, Eye, Wifi } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 const streamingFeatures = [
   {
-    title: "Streaming 8K",
+    title: "Streaming 4K/8K",
     icon: Eye,
     value: "Ultra HD",
-    description: "Résolution révolutionnaire",
+    description: "Qualité exceptionnelle",
   },
   {
-    title: "Serveurs Quantiques",
+    title: "Serveurs Rapides",
     icon: Zap,
-    value: "0ms",
-    description: "Latence impossible",
+    value: "24/7",
+    description: "Disponibilité garantie",
   },
   {
-    title: "Sécurité Blockchain",
+    title: "Connexion Sécurisée",
     icon: Shield,
-    value: "256-bit",
-    description: "Cryptage militaire",
+    value: "SSL",
+    description: "Protection avancée",
   },
   {
-    title: "Réseau Mondial",
+    title: "Couverture Mondiale",
     icon: Globe,
     value: "180+",
-    description: "Pays connectés",
+    description: "Pays disponibles",
   },
 ];
 
 const channelData = [
   {
-    category: "Premium Sports",
+    category: "Sport Premium",
     count: "5,000+",
     color: "from-red-500 to-orange-500",
   },
   {
-    category: "Cinema 8K",
+    category: "Cinéma & Séries",
     count: "8,000+",
     color: "from-purple-500 to-pink-500",
   },
   {
-    category: "News Global",
+    category: "Actualités",
     count: "3,000+",
     color: "from-blue-500 to-cyan-500",
   },
   {
-    category: "Kids Universe",
+    category: "Enfants",
     count: "2,000+",
     color: "from-green-500 to-emerald-500",
   },
@@ -68,7 +59,7 @@ const channelData = [
     color: "from-yellow-500 to-amber-500",
   },
   {
-    category: "Music Live",
+    category: "Musique",
     count: "1,500+",
     color: "from-indigo-500 to-purple-500",
   },
@@ -129,9 +120,9 @@ export function HeroSection() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="inline-flex items-center gap-3 glass-effect rounded-full px-8 py-4 mb-8 border border-primary/30"
             >
-              <Rocket className="h-6 w-6 text-primary" />
+              <Tv className="h-6 w-6 text-primary" />
               <span className="text-primary font-semibold uppercase tracking-wider">
-                Technologie Révolutionnaire
+                Fournisseur IPTV Premium
               </span>
             </motion.div>
 
@@ -141,19 +132,52 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.3 }}
               className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-none"
             >
-              <span className="block text-foreground">QUANTUM</span>
               <motion.span
-                className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent text-glow"
-                animate={{
-                  backgroundPosition: ["0%", "100%", "0%"],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent"
+                style={{
+                  filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))",
                 }}
               >
-                STREAM
+                Monde
+              </motion.span>
+              <motion.span className="block text-transparent relative">
+                {"IPTV".split("").map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      textShadow: [
+                        "0 0 3px #3b82f6, 0 0 5px #3b82f6",
+                        "0 0 3px #8b5cf6, 0 0 5px #8b5cf6",
+                        "0 0 3px #3b82f6, 0 0 5px #3b82f6",
+                      ],
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.2,
+                      type: "spring",
+                      stiffness: 100,
+                      textShadow: {
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      },
+                    }}
+                    className="inline-block text-blue-400"
+                    style={{
+                      filter: "drop-shadow(0 0 5px #3b82f6)",
+                      color: "#60a5fa",
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
               </motion.span>
             </motion.h1>
 
@@ -163,9 +187,9 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12"
             >
-              Révolutionnez votre expérience de streaming avec notre plateforme
-              alimentée par l'intelligence artificielle et la technologie
-              quantique
+              Découvrez l&apos;excellence du streaming avec nos abonnements IPTV
+              premium. Plus de 25 000 chaînes, qualité 4K/8K et service client
+              24/7
             </motion.p>
 
             {/* Action Buttons */}
@@ -185,8 +209,8 @@ export function HeroSection() {
                   onClick={() => setIsPlaying(!isPlaying)}
                 >
                   <span className="relative z-10 flex items-center gap-3">
-                    <Rocket className="h-6 w-6" />
-                    Activer Quantum Mode
+                    <Tv className="h-6 w-6" />
+                    Choisir mon Abonnement
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </Button>
@@ -202,7 +226,7 @@ export function HeroSection() {
                   className="border-2 border-primary/50 text-primary hover:bg-primary/10 font-semibold px-12 py-6 text-xl glass-effect"
                 >
                   <Play className="mr-3 h-6 w-6" />
-                  Voir la Démo
+                  Test Gratuit
                 </Button>
               </motion.div>
             </motion.div>
@@ -284,10 +308,10 @@ export function HeroSection() {
           >
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Univers de Contenu Illimité
+                Catalogue de Chaînes Complet
               </h2>
               <p className="text-xl text-muted-foreground">
-                Plus de 25 000 chaînes réparties dans 6 univers thématiques
+                Plus de 25 000 chaînes TV et VOD dans toutes les catégories
               </p>
             </div>
 
@@ -362,10 +386,10 @@ export function HeroSection() {
             className="mt-16 flex flex-wrap justify-center gap-8 text-center"
           >
             {[
-              { label: "Utilisateurs Actifs", value: "2.5M+", icon: Star },
+              { label: "Clients Satisfaits", value: "50K+", icon: Star },
               { label: "Pays Couverts", value: "180+", icon: Globe },
-              { label: "Serveurs Quantiques", value: "500+", icon: Zap },
-              { label: "Uptime Garanti", value: "99.9%", icon: Wifi },
+              { label: "Serveurs Actifs", value: "500+", icon: Zap },
+              { label: "Disponibilité", value: "99.9%", icon: Wifi },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}

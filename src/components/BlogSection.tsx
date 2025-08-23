@@ -379,7 +379,7 @@ export function BlogSection({ posts = [] }: BlogSectionProps) {
               </motion.h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
                 Explorez notre base de données quantique complète avec des
-                milliers d'articles sur les technologies neural-streaming.
+                milliers d&apos;articles sur les technologies neural-streaming.
               </p>
 
               <motion.div

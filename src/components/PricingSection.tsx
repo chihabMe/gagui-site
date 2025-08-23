@@ -2,11 +2,35 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, Star, X, Zap, Crown, Rocket, Brain } from "lucide-react";
+import {
+  Check,
+  Star,
+  X,
+  Zap,
+  Crown,
+  Rocket,
+  Brain,
+  type LucideIcon,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "motion/react";
 import { type PricingPlan } from "@/sanity";
 import { useState } from "react";
+
+// Extended type for fallback plans with additional UI properties
+interface ExtendedPricingPlan extends Omit<PricingPlan, "specifications"> {
+  planIcon?: LucideIcon;
+  planColor?: string;
+  specifications?: {
+    channels?: string;
+    quality?: string; // More flexible than the strict union
+    devices?: string;
+    support?: string;
+  };
+}
+
+// Union type for both Sanity and fallback plans
+type PlanType = PricingPlan | ExtendedPricingPlan;
 
 interface PricingSectionProps {
   pricingPlans?: PricingPlan[];
@@ -16,7 +40,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
   const { toast } = useToast();
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
 
-  const formatPrice = (plan: any) => {
+  const formatPrice = (plan: PlanType) => {
     const { amount, currency, period } = plan.price;
 
     const currencySymbol: { [key: string]: string } = {
@@ -40,7 +64,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     };
   };
 
-  const handleSubscribe = (plan: any) => {
+  const handleSubscribe = (plan: PlanType) => {
     if (plan.ctaUrl) {
       window.open(plan.ctaUrl, "_blank");
     } else {
@@ -183,7 +207,8 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
   ];
 
   // Use dynamic plans if available, otherwise use fallback
-  const plansToShow = pricingPlans.length > 0 ? pricingPlans : fallbackPlans;
+  const plansToShow: PlanType[] =
+    pricingPlans.length > 0 ? pricingPlans : fallbackPlans;
 
   return (
     <section
@@ -221,8 +246,8 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
             Connexions Neurales
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Choisissez votre niveau d'accès au réseau quantique et découvrez des
-            expériences de streaming révolutionnaires
+            Choisissez votre niveau d&apos;accès au réseau quantique et
+            découvrez des expériences de streaming révolutionnaires
           </p>
         </motion.div>
 
@@ -238,10 +263,12 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
               : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" // 5+ items: flexible grid
           }`}
         >
-          {plansToShow.map((plan: any, index: number) => {
+          {plansToShow.map((plan: PlanType, index: number) => {
             const priceInfo = formatPrice(plan);
-            const PlanIcon = plan.planIcon || Star;
-            const planColor = plan.planColor || "from-primary to-accent";
+            const extendedPlan = plan as ExtendedPricingPlan;
+            const PlanIcon = extendedPlan.planIcon || Star;
+            const planColor =
+              extendedPlan.planColor || "from-primary to-accent";
 
             return (
               <motion.div
@@ -434,46 +461,51 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       <ul className="space-y-3 mb-6 flex-1 overflow-hidden">
                         {plan.features
                           .slice(0, 6)
-                          .map((feature: any, featureIndex: number) => (
-                            <motion.li
-                              key={featureIndex}
-                              className="flex items-start space-x-3 group"
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{
-                                duration: 0.5,
-                                delay: index * 0.1 + featureIndex * 0.05,
-                              }}
-                            >
-                              {feature.included ? (
-                                <motion.div
-                                  className="w-5 h-5 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mt-0.5 flex-shrink-0 shadow-sm"
-                                  whileHover={{ scale: 1.2, rotate: 180 }}
-                                  transition={{ duration: 0.2 }}
-                                >
-                                  <Check className="h-3 w-3 text-white" />
-                                </motion.div>
-                              ) : (
-                                <motion.div
-                                  className="w-5 h-5 rounded-full bg-gradient-to-r from-red-400 to-red-500 flex items-center justify-center mt-0.5 flex-shrink-0 shadow-sm"
-                                  whileHover={{ scale: 1.2, rotate: 180 }}
-                                  transition={{ duration: 0.2 }}
-                                >
-                                  <X className="h-3 w-3 text-white" />
-                                </motion.div>
-                              )}
-                              <span
-                                className={`text-sm leading-relaxed transition-colors group-hover:text-primary ${
-                                  feature.included
-                                    ? "text-foreground"
-                                    : "text-muted-foreground line-through"
-                                }`}
+                          .map(
+                            (
+                              feature: { feature: string; included: boolean },
+                              featureIndex: number
+                            ) => (
+                              <motion.li
+                                key={featureIndex}
+                                className="flex items-start space-x-3 group"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{
+                                  duration: 0.5,
+                                  delay: index * 0.1 + featureIndex * 0.05,
+                                }}
                               >
-                                {feature.feature}
-                              </span>
-                            </motion.li>
-                          ))}
+                                {feature.included ? (
+                                  <motion.div
+                                    className="w-5 h-5 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mt-0.5 flex-shrink-0 shadow-sm"
+                                    whileHover={{ scale: 1.2, rotate: 180 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <Check className="h-3 w-3 text-white" />
+                                  </motion.div>
+                                ) : (
+                                  <motion.div
+                                    className="w-5 h-5 rounded-full bg-gradient-to-r from-red-400 to-red-500 flex items-center justify-center mt-0.5 flex-shrink-0 shadow-sm"
+                                    whileHover={{ scale: 1.2, rotate: 180 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <X className="h-3 w-3 text-white" />
+                                  </motion.div>
+                                )}
+                                <span
+                                  className={`text-sm leading-relaxed transition-colors group-hover:text-primary ${
+                                    feature.included
+                                      ? "text-foreground"
+                                      : "text-muted-foreground line-through"
+                                  }`}
+                                >
+                                  {feature.feature}
+                                </span>
+                              </motion.li>
+                            )
+                          )}
                         {plan.features.length > 6 && (
                           <li className="flex items-center space-x-3 text-sm text-muted-foreground">
                             <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
