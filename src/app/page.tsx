@@ -9,7 +9,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { DeviceCompatibility } from "@/components/DeviceCompatibility";
 import { IPTVPlayersSection } from "@/components/IPTVPlayersSection";
 import { Testimonials } from "@/components/Testimonials";
-import { BlogSection } from "@/components/BlogSection";
+// import { BlogSection } from "@/components/BlogSection";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
 import {
@@ -50,7 +50,7 @@ export default async function Home() {
         <IPTVPlayersSection />
         <Testimonials testimonials={testimonials} />
         <FAQSection faqs={faqs} />
-        <BlogSection posts={recentPosts} />
+        {/* <BlogSection posts={recentPosts} /> */}
         {/* <ContactSection /> */}
       </main>
       <Footer siteSettings={siteSettings} />

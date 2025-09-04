@@ -157,11 +157,9 @@ export function WhyChooseUs() {
                     className="text-6xl mb-3"
                     animate={{ rotateY: [0, 360] }}
                     transition={{ duration: 4, repeat: Infinity }}
-                  >
-                    🌌
-                  </motion.div>
+                  ></motion.div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
-                    Quantum Hub
+                    Monde IPTV
                   </h3>
                   <p className="text-sm text-white/80">Neural Network Core</p>
                 </div>

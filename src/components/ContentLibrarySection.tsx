@@ -193,7 +193,7 @@ export function ContentLibrarySection() {
         </motion.div>
 
         {/* Live Events */}
-        <motion.div
+        {/* <motion.div
           className="bg-gradient-primary rounded-2xl p-8 text-white mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +235,7 @@ export function ContentLibrarySection() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Call to Action */}
         <motion.div

@@ -144,14 +144,14 @@ export function QualitySection() {
 
           {/* Visual Section */}
           <motion.div
-            className="relative"
+            className="relative overflow-visible"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative">
-              {/* Main Quantum Hub */}
+            <div className="relative overflow-visible">
+              {/* Main Monde IPTV */}
               <motion.div
                 className="glass-effect rounded-3xl p-8 border border-primary/20 shadow-cyber relative overflow-hidden"
                 whileHover={{ scale: 1.02 }}
@@ -178,13 +178,12 @@ export function QualitySection() {
                     >
                       <div className="absolute inset-4 border-2 border-white/30 rounded-full"></div>
                       <div className="absolute inset-8 bg-white/20 rounded-full flex items-center justify-center">
-                        <motion.div
+                        {/* <motion.div
                           animate={{ rotateY: [0, 360] }}
                           transition={{ duration: 3, repeat: Infinity }}
                           className="text-4xl"
                         >
-                          🌌
-                        </motion.div>
+                        </motion.div> */}
                       </div>
                     </motion.div>
                   </div>
@@ -195,12 +194,12 @@ export function QualitySection() {
                       key={i}
                       className="absolute w-3 h-3 bg-accent rounded-full shadow-glow"
                       style={{
-                        left: `${20 + (i % 4) * 20}%`,
+                        left: `${150 + (i % 4) * 20}%`,
                         top: `${20 + Math.floor(i / 4) * 20}%`,
                       }}
                       animate={{
                         scale: [0.5, 1.5, 0.5],
-                        opacity: [0.3, 1, 0.3],
+                        opacity: [],
                         x: [0, Math.sin(i) * 20, 0],
                         y: [0, Math.cos(i) * 20, 0],
                       }}
@@ -287,13 +286,14 @@ export function QualitySection() {
               </motion.div>
 
               {/* Orbiting Elements */}
-              {[...Array(3)].map((_, i) => (
+              {/* {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={`orbit-${i}`}
-                  className="absolute w-16 h-16 glass-effect rounded-2xl p-3 border border-primary/20 shadow-cyber"
+                  className="absolute w-16 h-16 glass-effect rounded-2xl p-3 border border-primary/20 shadow-cyber z-10"
                   style={{
                     top: `${20 + i * 25}%`,
-                    right: i % 2 === 0 ? "-8%" : "-12%",
+                    right: i % 2 === 0 ? "100%" : "105%",
+                    transform: "translateX(50%)",
                   }}
                   animate={{
                     y: [0, -20, 0],
@@ -310,7 +310,7 @@ export function QualitySection() {
                     {["4K", "8K", "16K"][i]}
                   </div>
                 </motion.div>
-              ))}
+              ))} */}
             </div>
           </motion.div>
         </div>

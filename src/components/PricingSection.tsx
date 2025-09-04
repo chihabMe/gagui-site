@@ -311,7 +311,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                   {/* Popular Badge */}
                   {plan.isPopular && (
                     <motion.div
-                      className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10"
+                      className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10"
                       animate={{
                         y: [0, -5, 0],
                         rotateZ: [0, 2, -2, 0],
@@ -339,7 +339,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       }
                       transition={{ duration: 2, ease: "easeInOut" }}
                     >
-                      <PlanIcon className="h-8 w-8 text-white" />
+                      {!plan.isPopular && (
+                        <PlanIcon className="h-8 w-8 text-white" />
+                      )}
                     </motion.div>
 
                     <h3
@@ -528,10 +530,10 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       >
                         <Button
                           onClick={() => handleSubscribe(plan)}
-                          className={`w-full py-3 lg:py-4 text-base lg:text-lg font-bold transition-all duration-300 relative overflow-hidden group ${
+                          className={`w-full py-3 lg:py-4 text-base lg:text-lg cursor-pointer font-bold transition-all duration-300 relative overflow-hidden group ${
                             plan.isPopular
-                              ? "bg-gradient-primary hover:shadow-glow text-white"
-                              : "bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary hover:to-accent text-white hover:shadow-glow"
+                              ? "bg-gradient-primary hover:shadow-glow text-white  "
+                              : " hover:bg-gradient-primary      text-white hover:shadow-glow"
                           }`}
                           size="lg"
                         >
@@ -547,7 +549,66 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                               <Zap className="h-5 w-5" />
                             </motion.div>
                           </span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                          {/* Hover Background Effect */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            initial={{ scale: 0, rotate: 45 }}
+                            whileHover={{
+                              scale: 1,
+                              rotate: 0,
+                              background: [
+                                "linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3))",
+                                "linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4))",
+                                "linear-gradient(225deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3))",
+                              ],
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              background: {
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              },
+                            }}
+                          />
+
+                          {/* Animated Border Effect */}
+                          <motion.div
+                            className="absolute inset-0 rounded-lg"
+                            initial={{ opacity: 0 }}
+                            whileHover={{
+                              opacity: 1,
+                              boxShadow: [
+                                "0 0 0 2px rgba(59, 130, 246, 0.3)",
+                                "0 0 0 2px rgba(147, 51, 234, 0.5)",
+                                "0 0 0 2px rgba(59, 130, 246, 0.3)",
+                              ],
+                            }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+
+                          {/* Pulse Effect on Hover */}
+                          <motion.div
+                            className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100"
+                            animate={
+                              hoveredPlan === plan._id
+                                ? {
+                                    scale: [1, 1.02, 1],
+                                    opacity: [0, 0.1, 0],
+                                  }
+                                : {}
+                            }
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
                         </Button>
                       </motion.div>
                     </div>
