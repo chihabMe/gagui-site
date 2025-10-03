@@ -9,7 +9,7 @@ const contentCategories = [
   {
     icon: Film,
     title: "Films & Cinéma",
-    count: "15,000+",
+    count: "50,000+",
     description: "Dernières sorties, classiques et films du monde entier",
     features: [
       "Nouveautés 2025",
@@ -45,42 +45,6 @@ const contentCategories = [
   },
 ];
 
-const popularContent = [
-  {
-    category: "Films Populaires",
-    items: [
-      { name: "Action & Aventure", count: "2,500+" },
-      { name: "Comédie", count: "1,800+" },
-      { name: "Drame", count: "2,200+" },
-      { name: "Science-Fiction", count: "1,200+" },
-      { name: "Horreur", count: "900+" },
-      { name: "Romance", count: "1,100+" },
-    ],
-  },
-  {
-    category: "Séries Tendances",
-    items: [
-      { name: "Séries US", count: "3,200+" },
-      { name: "Séries françaises", count: "800+" },
-      { name: "K-Drama", count: "600+" },
-      { name: "Animes", count: "1,500+" },
-      { name: "Documentaires", count: "700+" },
-      { name: "Émissions TV", count: "950+" },
-    ],
-  },
-  {
-    category: "Sports Live",
-    items: [
-      { name: "Ligue 1", count: "38 matchs" },
-      { name: "Champions League", count: "125 matchs" },
-      { name: "NBA", count: "1,230 matchs" },
-      { name: "Tennis Grand Slam", count: "4 tournois" },
-      { name: "Formule 1", count: "23 courses" },
-      { name: "Boxe/MMA", count: "200+ combats" },
-    ],
-  },
-];
-
 const liveEvents = [
   {
     name: "UEFA Champions League",
@@ -109,7 +73,7 @@ export function ContentLibrarySection() {
             Contenu Illimité
           </Badge>
           <h2 className="text-4xl font-bold mb-4">
-            Plus de 25,000 contenus à votre disposition
+            Plus de 70,000 contenus à votre disposition
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Découvrez notre vaste bibliothèque de films, séries TV et événements
@@ -161,36 +125,6 @@ export function ContentLibrarySection() {
             </motion.div>
           ))}
         </div>
-
-        {/* Content Breakdown */}
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          {popularContent.map((section) => (
-            <Card key={section.category} className="p-6">
-              <h4 className="font-bold text-lg mb-4 text-primary">
-                {section.category}
-              </h4>
-              <div className="space-y-3">
-                {section.items.map((item) => (
-                  <div
-                    key={item.name}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-sm">{item.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {item.count}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </motion.div>
 
         {/* Live Events */}
         {/* <motion.div
@@ -250,20 +184,20 @@ export function ContentLibrarySection() {
               Accès instantané à tout ce contenu
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Avec un seul abonnement IPTV Pro, débloquez l&apos;accès à notre
+              Avec un seul abonnement IPTV VIP+, débloquez l&apos;accès à notre
               bibliothèque complète. Films récents, séries populaires et sports
               en direct, tout en qualité HD/4K.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button
+                asChild
                 size="lg"
                 className="bg-gradient-primary hover:opacity-90"
               >
-                <Play className="w-4 h-4 mr-2" />
-                Commencer maintenant
-              </Button>
-              <Button size="lg" variant="outline">
-                Voir tous les contenus
+                <a href="#tarifs">
+                  <Play className="w-4 h-4 mr-2" />
+                  Commencer maintenant
+                </a>
               </Button>
             </div>
           </div>

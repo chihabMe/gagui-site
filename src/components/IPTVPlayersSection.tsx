@@ -13,50 +13,29 @@ const iptvPlayers = [
     description: "Le lecteur IPTV le plus populaire et fiable",
   },
   {
-    name: "TiviMate",
-    logo: "📺",
-    platforms: ["Android", "Android TV"],
+    name: "XCIPTV",
+    logo: "⚡",
+    platforms: ["Android", "iOS", "Smart TV"],
     featured: true,
-    description: "Interface moderne et fonctionnalités avancées",
+    description: "Interface moderne avec fonctionnalités avancées",
+  },
+  {
+    name: "SmartOne IPTV",
+    logo: "📱",
+    platforms: ["Android", "iOS", "Android TV"],
+    featured: true,
+    description: "Lecteur rapide et intuitif",
   },
   {
     name: "IBO Player",
-    logo: "🎬",
+    logo: "�",
     platforms: ["Android", "iOS", "Smart TV"],
-    featured: false,
+    featured: true,
     description: "Lecteur simple et efficace",
   },
   {
-    name: "GSE Smart IPTV",
-    logo: "⚡",
-    platforms: ["iOS", "Android", "Apple TV"],
-    featured: true,
-    description: "Parfait pour les appareils Apple",
-  },
-  {
-    name: "Perfect Player",
-    logo: "🎮",
-    platforms: ["Android", "Android TV"],
-    featured: false,
-    description: "Interface personnalisable",
-  },
-  {
-    name: "VLC Media Player",
-    logo: "🔥",
-    platforms: ["PC", "Mac", "Android", "iOS"],
-    featured: false,
-    description: "Le lecteur multimédia universel",
-  },
-  {
-    name: "Kodi",
-    logo: "⭐",
-    platforms: ["PC", "Android", "Smart TV"],
-    featured: false,
-    description: "Centre multimédia open source",
-  },
-  {
     name: "Smart IPTV",
-    logo: "📱",
+    logo: "�",
     platforms: ["Samsung TV", "LG TV"],
     featured: true,
     description: "Spécialement conçu pour Smart TV",
@@ -88,7 +67,7 @@ export function IPTVPlayersSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
           {iptvPlayers.map((player, index) => (
             <motion.div
               key={player.name}

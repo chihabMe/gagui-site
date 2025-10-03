@@ -41,9 +41,9 @@ export default async function Home() {
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <HeroSection />
         <PopularChannels />
-        <QualitySection />
+        {/* <QualitySection /> */}
         <ContentLibrarySection />
-        <WhyChooseUs />
+        {/* <WhyChooseUs /> */}
         <PricingSection pricingPlans={pricingPlans} />
         <HowItWorks />
         <DeviceCompatibility />

@@ -69,19 +69,19 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       window.open(plan.ctaUrl, "_blank");
     } else {
       toast({
-        title: "Connexion Quantique Établie",
-        description: `Vous avez choisi le plan ${plan.name} - Initialisation du flux neural...`,
+        title: "Abonnement IPTV Activé",
+        description: `Vous avez choisi le plan ${plan.name} - Configuration en cours...`,
       });
     }
   };
 
-  // Enhanced quantum-themed fallback plans
+  // Enhanced IPTV-themed fallback plans
   const fallbackPlans = [
     {
-      _id: "quantum-trial",
+      _id: "iptv-trial",
       _type: "pricing" as const,
-      name: "Flux Neural Test",
-      description: "Découvrez notre réseau quantique",
+      name: "Essai Gratuit",
+      description: "Découvrez notre service IPTV",
       price: {
         amount: 0,
         currency: "EUR" as const,
@@ -90,16 +90,16 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       isPopular: false,
       isActive: true,
       order: 1,
-      ctaText: "Activer le Test",
+      ctaText: "Commencer l'essai",
       planIcon: Zap,
       planColor: "from-cyan-500 to-blue-500",
       features: [
-        { feature: "5000+ Flux Neuraux", included: true },
-        { feature: "Vision HD Quantique", included: true },
-        { feature: "1 Nœud de Connexion", included: true },
-        { feature: "Accès Temporel 24h", included: true },
-        { feature: "Bibliothèque Restreinte", included: true },
-        { feature: "Support IA Basique", included: true },
+        { feature: "5000+ Chaînes TV", included: true },
+        { feature: "Qualité HD", included: true },
+        { feature: "1 Appareil connecté", included: true },
+        { feature: "Accès 24h", included: true },
+        { feature: "Chaînes populaires", included: true },
+        { feature: "Support par email", included: true },
       ],
       specifications: {
         channels: "5000+",
@@ -109,10 +109,10 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       },
     },
     {
-      _id: "quantum-basic",
+      _id: "iptv-basic",
       _type: "pricing" as const,
-      name: "Neural Basic",
-      description: "Connexion standard au réseau",
+      name: "IPTV Basic",
+      description: "Abonnement standard",
       price: {
         amount: 45,
         currency: "EUR" as const,
@@ -121,16 +121,16 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       isPopular: false,
       isActive: true,
       order: 2,
-      ctaText: "Connecter",
+      ctaText: "S'abonner",
       planIcon: Crown,
       planColor: "from-green-500 to-emerald-500",
       features: [
-        { feature: "15K+ Flux Neuraux", included: true },
-        { feature: "Vision 4K Quantique", included: true },
-        { feature: "2 Nœuds Simultanés", included: true },
-        { feature: "Support Neural 24/7", included: true },
-        { feature: "Bibliothèque Étendue", included: true },
-        { feature: "Cryptage Militaire", included: true },
+        { feature: "15 000+ Chaînes TV", included: true },
+        { feature: "Qualité 4K", included: true },
+        { feature: "2 Appareils simultanés", included: true },
+        { feature: "Support 24/7", included: true },
+        { feature: "Chaînes premium", included: true },
+        { feature: "Anti-coupure", included: true },
       ],
       specifications: {
         channels: "15000+",
@@ -140,10 +140,10 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       },
     },
     {
-      _id: "quantum-premium",
+      _id: "iptv-premium",
       _type: "pricing" as const,
-      name: "Neural Premium",
-      description: "Réseau quantique populaire",
+      name: "IPTV Premium",
+      description: "Le plus populaire",
       price: {
         amount: 55,
         currency: "EUR" as const,
@@ -152,30 +152,30 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       isPopular: true,
       isActive: true,
       order: 3,
-      ctaText: "Synchroniser",
+      ctaText: "Choisir Premium",
       planIcon: Rocket,
       planColor: "from-purple-500 to-pink-500",
       features: [
-        { feature: "25K+ Flux Quantiques", included: true },
-        { feature: "Vision 8K Neural", included: true },
-        { feature: "5 Nœuds Parallèles", included: true },
-        { feature: "Support IA Avancé", included: true },
-        { feature: "Bibliothèque Infinie", included: true },
-        { feature: "Flux Premium Exclusifs", included: true },
-        { feature: "Stockage Quantique", included: true },
+        { feature: "25 000+ Chaînes", included: true },
+        { feature: "Qualité 4K Ultra", included: true },
+        { feature: "5 Appareils simultanés", included: true },
+        { feature: "Support prioritaire", included: true },
+        { feature: "VOD illimitée", included: true },
+        { feature: "Chaînes exclusives", included: true },
+        { feature: "Catch-up TV", included: true },
       ],
       specifications: {
         channels: "25000+",
-        quality: "8K",
+        quality: "4K",
         devices: "5",
         support: "24_7",
       },
     },
     {
-      _id: "quantum-ultimate",
+      _id: "iptv-ultimate",
       _type: "pricing" as const,
-      name: "Neural Ultimate",
-      description: "Expérience transcendante",
+      name: "IPTV Ultimate",
+      description: "L'expérience complète",
       price: {
         amount: 75,
         currency: "EUR" as const,
@@ -184,24 +184,24 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       isPopular: false,
       isActive: true,
       order: 4,
-      ctaText: "Transcender",
+      ctaText: "Choisir Ultimate",
       planIcon: Brain,
       planColor: "from-orange-500 to-red-500",
       features: [
-        { feature: "∞ Flux Omniversels", included: true },
-        { feature: "Vision 16K Holistique", included: true },
-        { feature: "Nœuds Illimités", included: true },
-        { feature: "Support Conscience IA", included: true },
-        { feature: "Multivers Complet", included: true },
-        { feature: "Événements Temporels", included: true },
-        { feature: "Réalité Augmentée", included: true },
-        { feature: "Mémoire Éternelle", included: true },
+        { feature: "70 000+ Chaînes", included: true },
+        { feature: "Qualité 4K Premium", included: true },
+        { feature: "Appareils illimités", included: true },
+        { feature: "Support VIP dédié", included: true },
+        { feature: "Toutes les VOD", included: true },
+        { feature: "Événements PPV", included: true },
+        { feature: "Multi-langue", included: true },
+        { feature: "Enregistrement cloud", included: true },
       ],
       specifications: {
-        channels: "∞",
-        quality: "16K",
+        channels: "70000+",
+        quality: "4K",
         devices: "∞",
-        support: "consciousness",
+        support: "vip",
       },
     },
   ];
@@ -238,16 +238,16 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
           <div className="inline-flex items-center gap-3 glass-effect rounded-full px-6 py-3 mb-8 backdrop-blur-sm border border-primary/30">
             <Star className="h-5 w-5 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary uppercase tracking-wider">
-              Plans Quantiques
+              Abonnements IPTV
             </span>
           </div>
 
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-cyan-400 bg-clip-text text-transparent">
-            Connexions Neurales
+            Nos Tarifs IPTV
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Choisissez votre niveau d&apos;accès au réseau quantique et
-            découvrez des expériences de streaming révolutionnaires
+            Choisissez l&apos;abonnement IPTV qui vous convient et profitez de
+            milliers de chaînes en HD et 4K avec un service client 24/7
           </p>
         </motion.div>
 
@@ -318,9 +318,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       }}
                       transition={{ duration: 3, repeat: Infinity }}
                     >
-                      <div className="bg-gradient-primary text-white px-6 py-2 rounded-full text-sm font-bold flex items-center space-x-2 shadow-glow">
+                      <div className="bg-gradient-primary text-xs md:text-base text-white px-6 py-2 rounded-full  font-bold flex items-center space-x-2 shadow-glow">
                         <Star className="h-4 w-4 animate-pulse" />
-                        <span>NEURAL POPULAIRE</span>
+                        <span>LE PLUS POPULAIRE</span>
                       </div>
                     </motion.div>
                   )}
@@ -403,13 +403,13 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                         <div className="relative z-10">
                           <h4 className="font-bold mb-4 text-sm text-primary uppercase tracking-wider flex items-center">
                             <Zap className="h-4 w-4 mr-2" />
-                            Spécifications Quantiques
+                            Spécifications Techniques
                           </h4>
                           <div className="space-y-3 text-sm">
                             {plan.specifications.channels && (
                               <div className="flex justify-between items-center">
                                 <span className="text-muted-foreground">
-                                  Flux Neuraux:
+                                  Chaînes:
                                 </span>
                                 <span className="font-bold text-primary">
                                   {plan.specifications.channels}
@@ -419,7 +419,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                             {plan.specifications.quality && (
                               <div className="flex justify-between items-center">
                                 <span className="text-muted-foreground">
-                                  Résolution:
+                                  Qualité:
                                 </span>
                                 <span className="font-bold text-accent">
                                   {plan.specifications.quality}
@@ -429,7 +429,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                             {plan.specifications.devices && (
                               <div className="flex justify-between items-center">
                                 <span className="text-muted-foreground">
-                                  Nœuds:
+                                  Appareils:
                                 </span>
                                 <span className="font-bold text-cyan-400">
                                   {plan.specifications.devices}
@@ -443,13 +443,12 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                                 </span>
                                 <span className="font-bold text-green-400">
                                   {plan.specifications.support === "24_7"
-                                    ? "24/7 Neural"
-                                    : plan.specifications.support ===
-                                      "consciousness"
-                                    ? "Conscience IA"
-                                    : plan.specifications.support === "business"
-                                    ? "Heures Quantum"
-                                    : "Email Basique"}
+                                    ? "24/7"
+                                    : plan.specifications.support === "vip"
+                                    ? "VIP Dédié"
+                                    : plan.specifications.support === "email"
+                                    ? "Email"
+                                    : "Standard"}
                                 </span>
                               </div>
                             )}
@@ -458,7 +457,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       </div>
                     )}
 
-                    {/* Quantum Features */}
+                    {/* Features IPTV */}
                     {plan.features && plan.features.length > 0 && (
                       <ul className="space-y-3 mb-6 flex-1 overflow-hidden">
                         {plan.features
@@ -522,7 +521,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                       </ul>
                     )}
 
-                    {/* Quantum Action Button */}
+                    {/* CTA Button */}
                     <div className="mt-auto">
                       <motion.div
                         whileHover={{ scale: 1.02 }}
@@ -625,7 +624,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
           })}
         </div>
 
-        {/* Quantum Guarantee Section */}
+        {/* Garantie Section */}
         <motion.div
           className="mt-20 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -662,16 +661,15 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
 
             <div className="relative z-10">
               <motion.h3
-                className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+                className="text-3xl font-bold mb-4    bg-clip-text text-white"
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
-                Garantie Quantique 30 Jours
+                Installation et Configuration
               </motion.h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
-                Testez notre réseau neural sans risque. Satisfaction garantie ou
-                remboursement intégral dans les 30 jours suivant votre connexion
-                quantique.
+                Notre équipe vous accompagne dans l&apos;installation et la
+                configuration de votre service IPTV sur tous vos appareils.
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm">
                 <div className="flex items-center gap-2">

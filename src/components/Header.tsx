@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react"; // IGNORE
-import { ThemeToggle } from "@/components/ThemeToggle";
+// import { ThemeToggle } from "@/components/ThemeToggle";
 const navigation = [
   { name: "Accueil", href: "/", isRoute: true },
   { name: "Chaînes", href: "/channels", isRoute: true },
@@ -116,7 +116,7 @@ export function Header() {
 
           {/* Desktop CTA Button */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <Link href="/#tarifs">
               <Button className="bg-gradient-primary hover:opacity-90 transition-all text-sm xl:text-base px-6 xl:px-8 py-3 shadow-cyber pulse-glow relative overflow-hidden">
                 <span className="relative z-10">Accéder à l&apos;Univers</span>
@@ -153,7 +153,7 @@ export function Header() {
                 stiffness: 200,
                 duration: 0.4,
               }}
-              className="fixed inset-0 h-[100vh] z-50 overflow-y-auto bg-background/95 dark:bg-background/95 backdrop-blur-lg transform"
+              className="fixed inset-0 h-[100vh] z-50 overflow-y-auto bg-background/95 dark:bg-background/95 bg-black transform"
             >
               {/* Mobile menu header - Only close button */}
               <div className="flex items-center justify-end px-6 pt-6 md:pt-8 pb-2 md:pb-4 border-b border-border/20 dark:border-border/20">
@@ -210,7 +210,7 @@ export function Header() {
                   })}
 
                   {/* Theme Toggle */}
-                  <motion.div
+                  {/* <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
@@ -218,11 +218,11 @@ export function Header() {
                       duration: 0.3,
                     }}
                     className="py-4 flex justify-center"
-                  >
-                    <div className="p-2 rounded-xl bg-card/50 dark:bg-card/50 border border-border/20 dark:border-border/20 backdrop-blur-sm">
+                  > */}
+                  {/* <div className="p-2 rounded-xl bg-card/50 dark:bg-card/50 border border-border/20 dark:border-border/20 backdrop-blur-sm">
                       <ThemeToggle />
-                    </div>
-                  </motion.div>
+                    </div> */}
+                  {/* </motion.div> */}
 
                   {/* Mobile CTA Button */}
                   <motion.div

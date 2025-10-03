@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 
 const streamingFeatures = [
   {
-    title: "Streaming 4K/8K",
+    title: "Streaming 4K",
     icon: Eye,
     value: "Ultra HD",
     description: "Qualité exceptionnelle",
@@ -40,7 +40,7 @@ const channelData = [
   },
   {
     category: "Cinéma & Séries",
-    count: "8,000+",
+    count: "50,000+",
     color: "from-purple-500 to-pink-500",
   },
   {
@@ -57,11 +57,6 @@ const channelData = [
     category: "Documentaires",
     count: "4,000+",
     color: "from-yellow-500 to-amber-500",
-  },
-  {
-    category: "Musique",
-    count: "1,500+",
-    color: "from-indigo-500 to-purple-500",
   },
 ];
 
@@ -122,7 +117,7 @@ export function HeroSection() {
             >
               <Tv className="h-6 w-6 text-primary" />
               <span className="text-primary font-semibold uppercase tracking-wider">
-                Fournisseur IPTV Premium
+                IPTV VIP+
               </span>
             </motion.div>
 
@@ -187,9 +182,9 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12"
             >
-              Découvrez l&apos;excellence du streaming avec nos abonnements IPTV
-              premium. Plus de 25 000 chaînes, qualité 4K/8K et service client
-              24/7
+              Découvrez l'excellence du streaming avec nos abonnements IPTV
+              vip+. Plus de 70000 chaînes, films et séries qualité 4K et service
+              client 24/7
             </motion.p>
 
             {/* Action Buttons */}
@@ -204,15 +199,17 @@ export function HeroSection() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
+                  asChild
                   size="lg"
                   className="bg-gradient-primary text-white font-bold px-12 py-6 text-xl shadow-cyber pulse-glow relative overflow-hidden group"
-                  onClick={() => setIsPlaying(!isPlaying)}
                 >
-                  <span className="relative z-10 flex items-center gap-3">
-                    <Tv className="h-6 w-6" />
-                    Choisir mon Abonnement
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <a href="#tarifs">
+                    <span className="relative z-10 flex items-center gap-3">
+                      <Tv className="h-6 w-6" />
+                      Choisir mon Abonnement
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </a>
                 </Button>
               </motion.div>
 
@@ -221,12 +218,15 @@ export function HeroSection() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
+                  asChild
                   size="lg"
                   variant="outline"
                   className="border-2 border-primary/50 text-primary hover:bg-primary/10 font-semibold px-12 py-6 text-xl glass-effect"
                 >
-                  <Play className="mr-3 h-6 w-6" />
-                  Test Gratuit
+                  <a href="#tarifs">
+                    <Play className="mr-3 h-6 w-6" />
+                    Test Gratuit
+                  </a>
                 </Button>
               </motion.div>
             </motion.div>
@@ -311,7 +311,7 @@ export function HeroSection() {
                 Catalogue de Chaînes Complet
               </h2>
               <p className="text-xl text-muted-foreground">
-                Plus de 25 000 chaînes TV et VOD dans toutes les catégories
+                Plus de 70 000 chaînes TV et VOD dans toutes les catégories
               </p>
             </div>
 
@@ -386,7 +386,7 @@ export function HeroSection() {
             className="mt-16 flex flex-wrap justify-center gap-8 text-center"
           >
             {[
-              { label: "Clients Satisfaits", value: "50K+", icon: Star },
+              { label: "Clients Satisfaits", value: "1000+", icon: Star },
               { label: "Pays Couverts", value: "180+", icon: Globe },
               { label: "Serveurs Actifs", value: "500+", icon: Zap },
               { label: "Disponibilité", value: "99.9%", icon: Wifi },

@@ -61,7 +61,7 @@ export function PopularChannels() {
             Chaînes Premium
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Explorez notre galaxie de contenu avec plus de 20 000 chaînes
+            Explorez notre galaxie de contenu avec plus de 70 000 chaînes
             ultra-HD et une expérience de streaming révolutionnaire
           </p>
         </motion.div>
@@ -123,12 +123,11 @@ export function PopularChannels() {
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-50"></div>
             <div className="relative z-10">
               <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                Plus de 50,000 chaînes vous attendent
+                Plus de 70,000 chaînes vous attendent
               </h3>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Sport, cinéma, séries, documentaires, musique... Explorez notre
-                catalogue complet de chaînes françaises et internationales en HD
-                et 4K.
+                Sport, cinéma, séries, documentaires... Explorez notre catalogue
+                complet de chaînes françaises et internationales en HD et 4K.
               </p>
               <Link href="/channels">
                 <Button
