@@ -17,44 +17,116 @@ import {
   CheckCircle,
   AlertCircle,
   Globe,
+  MapPin,
 } from "lucide-react";
+import { SiteSettings } from "@/sanity/types";
 
-const contactInfo = [
-  {
-    icon: Mail,
-    title: "Email",
-    description: "Envoyez-nous un email",
-    contact: "support@iptvpro.fr",
-    href: "mailto:support@iptvpro.fr",
-    color: "from-blue-500 to-blue-600",
-  },
-  {
-    icon: Phone,
-    title: "Téléphone",
-    description: "Appelez-nous directement",
-    contact: "+33 1 23 45 67 89",
-    href: "tel:+33123456789",
-    color: "from-green-500 to-green-600",
-  },
-  {
-    icon: MessageCircle,
-    title: "Chat en direct",
-    description: "Support instantané",
-    contact: "Disponible 24h/7j",
-    href: "#chat",
-    color: "from-purple-500 to-purple-600",
-  },
-  {
-    icon: Clock,
-    title: "Horaires",
-    description: "Support client",
-    contact: "Lun-Dim: 8h-22h",
-    href: null,
-    color: "from-orange-500 to-orange-600",
-  },
-];
+interface ContactSectionProps {
+  siteSettings?: SiteSettings | null;
+}
 
-export function ContactSection() {
+export function ContactSection({ siteSettings }: ContactSectionProps) {
+  // Get business hours as a formatted string
+  const getBusinessHours = () => {
+    if (!siteSettings?.businessHours) return "Lun-Dim: 8h-22h";
+
+    const { businessHours } = siteSettings;
+    // Check if all days have the same hours
+    const allDays = [
+      businessHours.monday,
+      businessHours.tuesday,
+      businessHours.wednesday,
+      businessHours.thursday,
+      businessHours.friday,
+      businessHours.saturday,
+      businessHours.sunday,
+    ];
+    const uniqueHours = [...new Set(allDays.filter(Boolean))];
+
+    if (uniqueHours.length === 1) {
+      return `Lun-Dim: ${uniqueHours[0]}`;
+    }
+
+    // If weekdays are the same
+    const weekdays = [
+      businessHours.monday,
+      businessHours.tuesday,
+      businessHours.wednesday,
+      businessHours.thursday,
+      businessHours.friday,
+    ];
+    const uniqueWeekdayHours = [...new Set(weekdays.filter(Boolean))];
+
+    if (
+      uniqueWeekdayHours.length === 1 &&
+      businessHours.saturday &&
+      businessHours.sunday
+    ) {
+      return `Lun-Ven: ${uniqueWeekdayHours[0]}, Sam-Dim: ${businessHours.saturday}`;
+    }
+
+    return businessHours.monday || "Lun-Dim: 8h-22h";
+  };
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email",
+      description: "Envoyez-nous un email",
+      contact: siteSettings?.contactInfo?.email || "support@iptvpro.fr",
+      href: `mailto:${
+        siteSettings?.contactInfo?.email || "support@iptvpro.fr"
+      }`,
+      color: "from-blue-500 to-blue-600",
+    },
+    {
+      icon: Phone,
+      title: "Téléphone",
+      description: "Appelez-nous directement",
+      contact: siteSettings?.contactInfo?.phone || "+33 1 23 45 67 89",
+      href: `tel:${
+        siteSettings?.contactInfo?.phone?.replace(/[\s-]/g, "") ||
+        "+33123456789"
+      }`,
+      color: "from-green-500 to-green-600",
+    },
+    {
+      icon: MessageCircle,
+      title: "WhatsApp",
+      description: "Support instantané",
+      contact: siteSettings?.contactInfo?.whatsapp || "Disponible 24h/7j",
+      href: siteSettings?.contactInfo?.whatsapp
+        ? `https://wa.me/${siteSettings.contactInfo.whatsapp.replace(
+            /[\s+-]/g,
+            ""
+          )}`
+        : null,
+      color: "from-purple-500 to-purple-600",
+    },
+    {
+      icon: Clock,
+      title: "Horaires",
+      description: "Support client",
+      contact: getBusinessHours(),
+      href: null,
+      color: "from-orange-500 to-orange-600",
+    },
+    ...(siteSettings?.contactInfo?.address
+      ? [
+          {
+            icon: MapPin,
+            title: "Adresse",
+            description: "Notre localisation",
+            contact: siteSettings.contactInfo.address,
+            href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              siteSettings.contactInfo.address
+            )}`,
+            color: "from-red-500 to-red-600",
+          },
+        ]
+      : []),
+  ];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
