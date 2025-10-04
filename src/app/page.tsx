@@ -18,9 +18,8 @@ import {
   getRecentPosts,
 } from "@/sanity";
 
-// Force dynamic rendering to ensure fresh data
-export const dynamic = "force-dynamic";
-export const revalidate = 0; // Disable caching for real-time updates
+// Enable static generation with revalidation
+export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
   // Fetch dynamic data

@@ -38,8 +38,10 @@ export async function getPosts(): Promise<PostPreview[]> {
       postsQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600, // Cache for 1 hour
+          tags: ["posts"],
+        },
       }
     );
   } catch (error) {
@@ -57,8 +59,10 @@ export async function getRecentPosts(
       recentPostsQuery,
       { limit },
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["posts"],
+        },
       }
     );
   } catch (error) {
@@ -74,8 +78,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       postBySlugQuery,
       { slug },
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["posts", `post-${slug}`],
+        },
       }
     );
   } catch (error) {
@@ -349,8 +355,10 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
       siteSettingsQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["site-settings"],
+        },
       }
     );
   } catch (error) {
@@ -366,8 +374,10 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
       pricingPlansQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["pricing"],
+        },
       }
     );
   } catch (error) {
@@ -385,8 +395,10 @@ export async function getPricingPlanById(
       pricingPlanByIdQuery,
       { id },
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["pricing", `pricing-${id}`],
+        },
       }
     );
   } catch (error) {
@@ -402,8 +414,10 @@ export async function getFAQ(): Promise<FAQ[]> {
       faqQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["faq"],
+        },
       }
     );
   } catch (error) {
@@ -419,8 +433,10 @@ export async function getFAQByCategory(category: string): Promise<FAQ[]> {
       faqByCategoryQuery,
       { category },
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["faq", `faq-${category}`],
+        },
       }
     );
   } catch (error) {
@@ -436,8 +452,10 @@ export async function getTestimonials(): Promise<Testimonial[]> {
       testimonialsQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["testimonials"],
+        },
       }
     );
   } catch (error) {
@@ -453,8 +471,10 @@ export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
       featuredTestimonialsQuery,
       {},
       {
-        cache: "no-store",
-        next: { revalidate: 0 },
+        next: {
+          revalidate: 3600,
+          tags: ["testimonials"],
+        },
       }
     );
   } catch (error) {
