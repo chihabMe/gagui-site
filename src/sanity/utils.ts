@@ -351,7 +351,9 @@ export async function checkEmailSubscription(
 // Fetch site settings (contact info, etc.)
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    return await client.fetch(
+    console.log("🔍 [getSiteSettings] Starting fetch...");
+
+    const settings = await client.fetch(
       siteSettingsQuery,
       {},
       {
@@ -361,8 +363,15 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
         },
       }
     );
+
+    console.log(
+      "✅ [getSiteSettings] Fetched settings:",
+      settings ? "Found" : "Not found"
+    );
+
+    return settings;
   } catch (error) {
-    console.error("Error fetching site settings:", error);
+    console.error("❌ [getSiteSettings] Error:", error);
     return null;
   }
 }
@@ -370,7 +379,14 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
 // Fetch all active pricing plans
 export async function getPricingPlans(): Promise<PricingPlan[]> {
   try {
-    return await client.fetch(
+    console.log("🔍 [getPricingPlans] Starting fetch...");
+    console.log("🔍 [getPricingPlans] Client config:", {
+      projectId: client.config().projectId,
+      dataset: client.config().dataset,
+    });
+    console.log("🔍 [getPricingPlans] Query:", pricingPlansQuery);
+
+    const plans = await client.fetch(
       pricingPlansQuery,
       {},
       {
@@ -380,8 +396,19 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
         },
       }
     );
+
+    console.log("✅ [getPricingPlans] Fetched plans:", {
+      count: plans.length,
+      plans: plans.map((p: any) => ({
+        id: p._id,
+        name: p.name,
+        price: p.price,
+      })),
+    });
+
+    return plans;
   } catch (error) {
-    console.error("Error fetching pricing plans:", error);
+    console.error("❌ [getPricingPlans] Error fetching pricing plans:", error);
     return [];
   }
 }
@@ -410,7 +437,9 @@ export async function getPricingPlanById(
 // Fetch all active FAQ items
 export async function getFAQ(): Promise<FAQ[]> {
   try {
-    return await client.fetch(
+    console.log("🔍 [getFAQ] Starting fetch...");
+
+    const faqs = await client.fetch(
       faqQuery,
       {},
       {
@@ -420,8 +449,12 @@ export async function getFAQ(): Promise<FAQ[]> {
         },
       }
     );
+
+    console.log("✅ [getFAQ] Fetched:", faqs.length, "FAQ items");
+
+    return faqs;
   } catch (error) {
-    console.error("Error fetching FAQ:", error);
+    console.error("❌ [getFAQ] Error:", error);
     return [];
   }
 }
@@ -448,7 +481,9 @@ export async function getFAQByCategory(category: string): Promise<FAQ[]> {
 // Fetch all active testimonials
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {
-    return await client.fetch(
+    console.log("🔍 [getTestimonials] Starting fetch...");
+
+    const testimonials = await client.fetch(
       testimonialsQuery,
       {},
       {
@@ -458,8 +493,16 @@ export async function getTestimonials(): Promise<Testimonial[]> {
         },
       }
     );
+
+    console.log(
+      "✅ [getTestimonials] Fetched:",
+      testimonials.length,
+      "testimonials"
+    );
+
+    return testimonials;
   } catch (error) {
-    console.error("Error fetching testimonials:", error);
+    console.error("❌ [getTestimonials] Error:", error);
     return [];
   }
 }
@@ -467,7 +510,9 @@ export async function getTestimonials(): Promise<Testimonial[]> {
 // Fetch featured testimonials only
 export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   try {
-    return await client.fetch(
+    console.log("🔍 [getFeaturedTestimonials] Starting fetch...");
+
+    const testimonials = await client.fetch(
       featuredTestimonialsQuery,
       {},
       {
@@ -477,8 +522,16 @@ export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
         },
       }
     );
+
+    console.log(
+      "✅ [getFeaturedTestimonials] Fetched:",
+      testimonials.length,
+      "featured testimonials"
+    );
+
+    return testimonials;
   } catch (error) {
-    console.error("Error fetching featured testimonials:", error);
+    console.error("❌ [getFeaturedTestimonials] Error:", error);
     return [];
   }
 }

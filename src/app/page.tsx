@@ -31,6 +31,11 @@ export default async function Home() {
       getFeaturedTestimonials(),
       getRecentPosts(4),
     ]);
+  console.log("siteSettings:", siteSettings);
+  console.log("pricingPlans:", pricingPlans);
+  console.log("faqs:", faqs);
+  console.log("testimonials:", testimonials);
+  console.log("recentPosts:", recentPosts);
 
   return (
     <div className="min-h-screen">
