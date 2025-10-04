@@ -16,7 +16,7 @@ import { structureTool } from "sanity/structure";
 const config = defineConfig({
   name: "default",
   title: "Ramzi IPTV & Blog",
-  projectId: "xwvmvdty",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "",
   dataset: "production",
   basePath: "/studio",
   plugins: [
