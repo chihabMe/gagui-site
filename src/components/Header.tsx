@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react"; // IGNORE
@@ -65,14 +66,17 @@ export function Header() {
               href="/"
               className="-m-1.5 p-1.5 flex items-center group transition-all duration-300"
             >
-              <div className="relative flex items-center">
-                <span className="text-2xl xl:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(0,255,255,0.3)]">
-                  Media
-                </span>
-                <span className="text-2xl xl:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent ml-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.3)]">
-                  IPTV
-                </span>
-                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 shadow-[0_0_20px_rgba(0,255,255,0.3)]"></div>
+              <div className="relative">
+                <Image
+                  src="/logo.png"
+                  alt="Media IPTV Logo"
+                  width={180}
+                  height={50}
+                  priority
+                  className="h-8 w-auto sm:h-10 md:h-12 lg:h-10 xl:h-12 2xl:h-14 transition-all duration-300"
+                  sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 140px, (max-width: 1280px) 160px, 180px"
+                />
+                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </div>
             </Link>
           </div>
