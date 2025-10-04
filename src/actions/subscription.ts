@@ -1,6 +1,7 @@
 "use server";
 
 import { client } from "@/sanity/client";
+import { getSiteSettings } from "@/sanity";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -98,11 +99,15 @@ Merci ! 😊`;
     // Encode message for WhatsApp URL
     const encodedMessage = encodeURIComponent(whatsappMessage);
 
-    // WhatsApp business number from environment variables
+    // Get WhatsApp number from Sanity siteSettings
+    const siteSettings = await getSiteSettings();
     const whatsappNumber =
-      process.env.WHATSAPP_BUSINESS_NUMBER || "+212123456789";
+      siteSettings?.contactInfo?.whatsapp ||
+      process.env.WHATSAPP_BUSINESS_NUMBER ||
+      "+212123456789";
+
     const whatsappUrl = `https://wa.me/${whatsappNumber.replace(
-      "+",
+      /[\s+-]/g,
       ""
     )}?text=${encodedMessage}`;
 

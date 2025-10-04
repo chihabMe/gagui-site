@@ -398,33 +398,82 @@ export function SubscriptionModal({
                 variant="outline"
                 onClick={handleClose}
                 disabled={isPending}
-                className="flex-1"
+                className="flex-1 transition-all duration-300"
+                asChild
               >
-                Annuler
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Annuler
+                </motion.button>
               </Button>
               <Button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 bg-gradient-primary hover:shadow-glow text-white font-medium"
+                className="flex-1 bg-gradient-primary hover:shadow-glow text-white font-medium relative overflow-hidden transition-all duration-300 disabled:opacity-90"
               >
                 {isPending ? (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="flex items-center gap-2"
-                  >
-                    <Loader2 className="h-4 w-4" />
-                    <span>Envoi...</span>
-                  </motion.div>
+                  <>
+                    {/* Animated background shimmer */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      animate={{
+                        x: ["-100%", "100%"],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex items-center gap-2 relative z-10"
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      >
+                        <Loader2 className="h-4 w-4" />
+                      </motion.div>
+                      <motion.span
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        Envoi en cours...
+                      </motion.span>
+                    </motion.div>
+                  </>
                 ) : (
-                  <div className="flex items-center gap-2">
-                    <ExternalLink className="h-4 w-4" />
+                  <motion.div
+                    className="flex items-center gap-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <motion.div
+                      animate={{
+                        x: [0, 3, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </motion.div>
                     <span>Continuer sur WhatsApp</span>
-                  </div>
+                  </motion.div>
                 )}
               </Button>
             </motion.div>
