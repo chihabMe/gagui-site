@@ -305,21 +305,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
                   ></div>
 
                   {/* Popular Badge */}
-                  {plan.isPopular && (
-                    <motion.div
-                      className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10"
-                      animate={{
-                        y: [0, -5, 0],
-                        rotateZ: [0, 2, -2, 0],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    >
-                      <div className="bg-gradient-primary text-xs md:text-base text-white px-6 py-2 rounded-full  font-bold flex items-center space-x-2 shadow-glow">
-                        <Star className="h-4 w-4 animate-pulse" />
-                        <span>LE PLUS POPULAIRE</span>
-                      </div>
-                    </motion.div>
-                  )}
 
                   {/* Plan Header */}
                   <div className="text-center mb-6 relative z-10 flex-shrink-0">
