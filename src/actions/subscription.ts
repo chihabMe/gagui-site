@@ -102,7 +102,7 @@ Merci ! 😊`;
     // Get WhatsApp number from Sanity siteSettings
     const siteSettings = await getSiteSettings();
     const whatsappNumber =
-      siteSettings?.contactInfo?.whatsapp ||
+      siteSettings?.contactInfo?.phone ||
       process.env.WHATSAPP_BUSINESS_NUMBER ||
       "+212123456789";
 
