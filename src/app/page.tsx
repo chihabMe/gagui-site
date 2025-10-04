@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
+import { ChannelCatalogSection } from "@/components/ChannelCatalogSection";
 import { PopularChannels } from "@/components/PopularChannels";
 import { ContentLibrarySection } from "@/components/ContentLibrarySection";
 import { PricingSection } from "@/components/PricingSection";
@@ -44,6 +45,7 @@ export default async function Home() {
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <HeroSection />
         <PricingSection pricingPlans={pricingPlans} />
+        <ChannelCatalogSection />
         <PopularChannels />
         {/* <QualitySection /> */}
         <ContentLibrarySection />
@@ -57,7 +59,7 @@ export default async function Home() {
         {/* <ContactSection /> */}
       </main>
       <Footer siteSettings={siteSettings} />
-      <WhatsAppFloat phoneNumber={siteSettings?.contactInfo?.phone ?? ""} />
+      <WhatsAppFloat phoneNumber={siteSettings?.contactInfo?.whatsapp ?? ""} />
     </div>
   );
 }

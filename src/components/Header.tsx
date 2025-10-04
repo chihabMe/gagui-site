@@ -70,11 +70,11 @@ export function Header() {
                 <Image
                   src="/logo.png"
                   alt="Media IPTV Logo"
-                  width={180}
-                  height={50}
+                  width={480}
+                  height={135}
                   priority
-                  className="h-8 w-auto sm:h-10 md:h-12 lg:h-10 xl:h-12 2xl:h-14 transition-all duration-300"
-                  sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 140px, (max-width: 1280px) 160px, 180px"
+                  className="h-24 w-auto sm:h-28 md:h-32 lg:h-36 xl:h-40 2xl:h-44 transition-all duration-300"
+                  sizes="(max-width: 640px) 360px, (max-width: 768px) 420px, (max-width: 1024px) 480px, (max-width: 1280px) 540px, 600px"
                 />
                 <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </div>

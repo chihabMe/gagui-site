@@ -14,7 +14,7 @@ export function WhatsAppFloat({
   message = "Bonjour, je suis intéressé par vos services IPTV",
 }: WhatsAppFloatProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
+  const [_, setScrollDirection] = useState<"up" | "down">("down");
   const { scrollY } = useScroll();
 
   // Track scroll direction

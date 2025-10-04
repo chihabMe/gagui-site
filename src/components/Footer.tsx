@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  Tv,
   Mail,
   Phone,
   MapPin,
@@ -10,6 +9,7 @@ import {
   Youtube,
   MessageCircle,
 } from "lucide-react";
+import Image from "next/image";
 import { type SiteSettings } from "@/sanity";
 
 const quickLinks = [
@@ -25,8 +25,6 @@ const legalLinks = [
   { name: "Conditions d'utilisation", href: "#" },
   { name: "CGV", href: "#" },
 ];
-
-const paymentMethods = ["💳", "🏦", "💰", "📱"];
 
 interface FooterProps {
   siteSettings?: SiteSettings | null;
@@ -54,14 +52,14 @@ export function Footer({ siteSettings }: FooterProps) {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="relative">
-                <Tv className="h-10 w-10 text-primary" />
-                <div className="absolute inset-0 bg-primary/20 rounded-full blur-lg"></div>
-              </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                {siteSettings?.title || "NEXUS STREAM"}
-              </span>
+            <div className="mb-6">
+              <Image
+                src="/logo.png"
+                alt="Media IPTV Logo"
+                width={240}
+                height={68}
+                className="h-20 w-auto"
+              />
             </div>
             <p className="text-muted-foreground mb-8 text-lg">
               {siteSettings?.description ||
@@ -79,13 +77,17 @@ export function Footer({ siteSettings }: FooterProps) {
               {siteSettings?.contactInfo?.phone && (
                 <div className="flex items-center">
                   <Phone className="h-4 w-4 mr-2 text-primary" />
-                  <span>{siteSettings.contactInfo.phone}</span>
-                </div>
-              )}
-              {siteSettings?.contactInfo?.whatsapp && (
-                <div className="flex items-center">
-                  <MessageCircle className="h-4 w-4 mr-2 text-primary" />
-                  <span>WhatsApp: {siteSettings.contactInfo.whatsapp}</span>
+                  <a
+                    href={`https://wa.me/${siteSettings.contactInfo.phone.replace(
+                      /\s+/g,
+                      ""
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground hover:text-primary transition-colors"
+                  >
+                    {siteSettings.contactInfo.phone}
+                  </a>
                 </div>
               )}
               {siteSettings?.contactInfo?.address && (
@@ -149,7 +151,7 @@ export function Footer({ siteSettings }: FooterProps) {
             </div>
 
             {/* Dynamic Social Links */}
-            <div className="flex space-x-3 mb-6">
+            <div className="flex space-x-3">
               {siteSettings?.contactInfo?.socialLinks &&
                 Object.entries(siteSettings.contactInfo.socialLinks).map(
                   ([platform, url]) => {
@@ -168,18 +170,6 @@ export function Footer({ siteSettings }: FooterProps) {
                     );
                   }
                 )}
-            </div>
-
-            {/* Payment Methods */}
-            <div>
-              <h4 className="font-semibold mb-2">Moyens de paiement</h4>
-              <div className="flex space-x-2">
-                {paymentMethods.map((method, index) => (
-                  <div key={index} className="text-2xl">
-                    {method}
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
