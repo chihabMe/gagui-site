@@ -10,6 +10,7 @@ import { Testimonials } from "@/components/Testimonials";
 // import { BlogSection } from "@/components/BlogSection";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import {
   getSiteSettings,
   getPricingPlans,
@@ -56,6 +57,7 @@ export default async function Home() {
         {/* <ContactSection /> */}
       </main>
       <Footer siteSettings={siteSettings} />
+      <WhatsAppFloat phoneNumber={siteSettings?.contactInfo?.phone ?? ""} />
     </div>
   );
 }
