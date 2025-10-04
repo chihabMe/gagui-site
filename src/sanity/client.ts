@@ -1,13 +1,16 @@
-import { createClient } from "next-sanity";
+import { createClient } from "@sanity/client";
 
 export const client = createClient({
-  projectId: "xwvmvdty",
-  dataset: "production",
-  apiVersion: "2024-01-01", // Use current date
-  useCdn: false, // Disable CDN to ensure fresh content
-  token: process.env.SANITY_API_TOKEN, // Add token for write operations
-  perspective: "published", // Only fetch published content
-  stega: {
-    enabled: false,
-  },
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  useCdn: false, // Set to false for real-time updates
+  apiVersion: "2024-01-01",
+  token: process.env.SANITY_API_TOKEN, // Required for write operations
+});
+
+export const clientRead = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  useCdn: false, // Use CDN for read operations
+  apiVersion: "2024-01-01",
 });

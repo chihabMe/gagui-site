@@ -62,7 +62,6 @@ const channelData = [
 
 export function HeroSection() {
   const [activeFeature, setActiveFeature] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -182,9 +181,8 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12"
             >
-              Découvrez l'excellence du streaming avec nos abonnements IPTV
-              vip+. Plus de 70000 chaînes, films et séries qualité 4K et service
-              client 24/7
+              Découvrez nos offres d&apos;abonnement IPTV vip+. Plus de 70000
+              chaînes, films et séries qualité 4K et service client 24/7
             </motion.p>
 
             {/* Action Buttons */}
@@ -361,7 +359,7 @@ export function HeroSection() {
                       </h3>
 
                       <motion.div
-                        animate={isPlaying ? { scale: [1, 1.1, 1] } : {}}
+                        animate={{ scale: [1, 1.1, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                         className={`text-3xl font-black bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
                       >

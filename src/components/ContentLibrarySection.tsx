@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react"; // IGNORE
-import { Film, Tv, Trophy, Star, Play, Clock, Globe } from "lucide-react";
+import { Film, Tv, Trophy, Star, Play, Globe } from "lucide-react";
 
 const contentCategories = [
   {
@@ -43,18 +43,6 @@ const contentCategories = [
     gradient: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50 dark:bg-green-950/20",
   },
-];
-
-const liveEvents = [
-  {
-    name: "UEFA Champions League",
-    time: "20:00",
-    date: "Aujourd'hui",
-    live: true,
-  },
-  { name: "NBA Finals", time: "02:30", date: "Demain", live: false },
-  { name: "Roland Garros", time: "14:00", date: "En cours", live: true },
-  { name: "Formule 1 GP Monaco", time: "15:00", date: "Dimanche", live: false },
 ];
 
 export function ContentLibrarySection() {

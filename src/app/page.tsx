@@ -1,9 +1,7 @@
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { PopularChannels } from "@/components/PopularChannels";
-import { QualitySection } from "@/components/QualitySection";
 import { ContentLibrarySection } from "@/components/ContentLibrarySection";
-import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { PricingSection } from "@/components/PricingSection";
 import { HowItWorks } from "@/components/HowItWorks";
 import { DeviceCompatibility } from "@/components/DeviceCompatibility";

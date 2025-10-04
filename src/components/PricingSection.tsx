@@ -12,10 +12,10 @@ import {
   Brain,
   type LucideIcon,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { motion } from "motion/react";
 import { type PricingPlan } from "@/sanity";
 import { useState } from "react";
+import { SubscriptionModal } from "./SubscriptionModal";
 
 // Extended type for fallback plans with additional UI properties
 interface ExtendedPricingPlan extends Omit<PricingPlan, "specifications"> {
@@ -37,8 +37,9 @@ interface PricingSectionProps {
 }
 
 export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
-  const { toast } = useToast();
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatPrice = (plan: PlanType) => {
     const { amount, currency, period } = plan.price;
@@ -65,14 +66,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
   };
 
   const handleSubscribe = (plan: PlanType) => {
-    if (plan.ctaUrl) {
-      window.open(plan.ctaUrl, "_blank");
-    } else {
-      toast({
-        title: "Abonnement IPTV Activé",
-        description: `Vous avez choisi le plan ${plan.name} - Configuration en cours...`,
-      });
-    }
+    // Open modal instead of direct redirect
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
   };
 
   // Enhanced IPTV-themed fallback plans
@@ -689,6 +685,22 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
           </div>
         </motion.div>
       </div>
+
+      {/* Subscription Modal */}
+      <SubscriptionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        plan={
+          selectedPlan
+            ? {
+                id: selectedPlan._id,
+                name: selectedPlan.name,
+                price: selectedPlan.price,
+                isPopular: selectedPlan.isPopular,
+              }
+            : null
+        }
+      />
     </section>
   );
 }

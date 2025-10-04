@@ -8,6 +8,7 @@ import siteSettings from "@/sanity/schemas/siteSettings";
 import pricing from "@/sanity/schemas/pricing";
 import faq from "@/sanity/schemas/faq";
 import testimonial from "@/sanity/schemas/testimonial";
+import { subscriptionRequest } from "@/sanity/schemas/subscription-request";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
@@ -52,6 +53,13 @@ const config = defineConfig({
                         S.documentTypeList("testimonial").title("Testimonials")
                       ),
                     S.divider(),
+                    S.listItem()
+                      .title("Subscription Requests")
+                      .child(
+                        S.documentTypeList("subscriptionRequest").title(
+                          "Subscription Requests"
+                        )
+                      ),
                     S.listItem()
                       .title("Contact Messages")
                       .child(
@@ -105,6 +113,7 @@ const config = defineConfig({
       pricing,
       faq,
       testimonial,
+      subscriptionRequest,
     ],
   },
 });
