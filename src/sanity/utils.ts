@@ -397,15 +397,6 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
       }
     );
 
-    console.log("✅ [getPricingPlans] Fetched plans:", {
-      count: plans.length,
-      plans: plans.map((p: any) => ({
-        id: p._id,
-        name: p.name,
-        price: p.price,
-      })),
-    });
-
     return plans;
   } catch (error) {
     console.error("❌ [getPricingPlans] Error fetching pricing plans:", error);
