@@ -42,11 +42,11 @@ export default async function Home() {
       <Header />
       <main className="container max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <HeroSection />
+        <PricingSection pricingPlans={pricingPlans} />
         <PopularChannels />
         {/* <QualitySection /> */}
         <ContentLibrarySection />
         {/* <WhyChooseUs /> */}
-        <PricingSection pricingPlans={pricingPlans} />
         <HowItWorks />
         <DeviceCompatibility />
         <IPTVPlayersSection />
