@@ -24,6 +24,7 @@ export default defineType({
       title: 'Author',
       type: 'reference',
       to: {type: 'author'},
+      weak: true,
     }),
     defineField({
       name: 'mainImage',
@@ -37,7 +38,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{type: 'reference', to: {type: 'category'}, weak: true}],
     }),
     defineField({
       name: 'publishedAt',

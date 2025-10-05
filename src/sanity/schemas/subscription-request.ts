@@ -29,6 +29,7 @@ export const subscriptionRequest = defineType({
       type: "reference",
       to: [{ type: "pricing" }],
       validation: (rule) => rule.required(),
+      weak: true,
     }),
     defineField({
       name: "planName",
