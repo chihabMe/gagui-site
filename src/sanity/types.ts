@@ -149,12 +149,6 @@ export interface PricingPlan {
   order: number;
   ctaText?: string;
   ctaUrl?: string;
-  specifications?: {
-    channels?: string;
-    quality?: "HD" | "FHD" | "4K" | "mixed";
-    devices?: string;
-    support?: "24_7" | "business" | "email";
-  };
 }
 
 export interface FAQ {

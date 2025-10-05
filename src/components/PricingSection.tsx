@@ -18,15 +18,9 @@ import { useState } from "react";
 import { SubscriptionModal } from "./SubscriptionModal";
 
 // Extended type for fallback plans with additional UI properties
-interface ExtendedPricingPlan extends Omit<PricingPlan, "specifications"> {
+interface ExtendedPricingPlan extends PricingPlan {
   planIcon?: LucideIcon;
   planColor?: string;
-  specifications?: {
-    channels?: string;
-    quality?: string; // More flexible than the strict union
-    devices?: string;
-    support?: string;
-  };
 }
 
 // Union type for both Sanity and fallback plans
@@ -97,12 +91,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
         { feature: "Chaînes populaires", included: true },
         { feature: "Support par email", included: true },
       ],
-      specifications: {
-        channels: "5000+",
-        quality: "HD",
-        devices: "1",
-        support: "email",
-      },
     },
     {
       _id: "iptv-basic",
@@ -128,12 +116,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
         { feature: "Chaînes premium", included: true },
         { feature: "Anti-coupure", included: true },
       ],
-      specifications: {
-        channels: "15000+",
-        quality: "4K",
-        devices: "2",
-        support: "email",
-      },
     },
     {
       _id: "iptv-premium",
@@ -160,12 +142,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
         { feature: "Chaînes exclusives", included: true },
         { feature: "Catch-up TV", included: true },
       ],
-      specifications: {
-        channels: "25000+",
-        quality: "4K",
-        devices: "5",
-        support: "24_7",
-      },
     },
     {
       _id: "iptv-ultimate",
@@ -193,12 +169,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
         { feature: "Multi-langue", included: true },
         { feature: "Enregistrement cloud", included: true },
       ],
-      specifications: {
-        channels: "70000+",
-        quality: "4K",
-        devices: "∞",
-        support: "vip",
-      },
     },
   ];
 
@@ -378,66 +348,6 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
 
                   {/* Quantum Specs */}
                   <div className="flex-1 relative z-10 flex flex-col">
-                    {plan.specifications && (
-                      <div className="mb-6 glass-effect p-4 rounded-2xl border border-primary/20 relative overflow-hidden flex-shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5"></div>
-                        <div className="relative z-10">
-                          <h4 className="font-bold mb-4 text-sm text-primary uppercase tracking-wider flex items-center">
-                            <Zap className="h-4 w-4 mr-2" />
-                            Spécifications Techniques
-                          </h4>
-                          <div className="space-y-3 text-sm">
-                            {plan.specifications.channels && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-muted-foreground">
-                                  Chaînes:
-                                </span>
-                                <span className="font-bold text-primary">
-                                  {plan.specifications.channels}
-                                </span>
-                              </div>
-                            )}
-                            {plan.specifications.quality && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-muted-foreground">
-                                  Qualité:
-                                </span>
-                                <span className="font-bold text-accent">
-                                  {plan.specifications.quality}
-                                </span>
-                              </div>
-                            )}
-                            {plan.specifications.devices && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-muted-foreground">
-                                  Appareils:
-                                </span>
-                                <span className="font-bold text-cyan-400">
-                                  {plan.specifications.devices}
-                                </span>
-                              </div>
-                            )}
-                            {plan.specifications.support && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-muted-foreground">
-                                  Support:
-                                </span>
-                                <span className="font-bold text-green-400">
-                                  {plan.specifications.support === "24_7"
-                                    ? "24/7"
-                                    : plan.specifications.support === "vip"
-                                    ? "VIP Dédié"
-                                    : plan.specifications.support === "email"
-                                    ? "Email"
-                                    : "Standard"}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
                     {/* Features IPTV */}
                     {plan.features && plan.features.length > 0 && (
                       <ul className="space-y-3 mb-6 flex-1 overflow-hidden">

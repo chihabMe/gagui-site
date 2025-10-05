@@ -128,48 +128,6 @@ export default defineType({
       type: "url",
       description: "Link for the subscription button",
     }),
-    defineField({
-      name: "specifications",
-      title: "Technical Specifications",
-      type: "object",
-      fields: [
-        defineField({
-          name: "channels",
-          title: "Number of Channels",
-          type: "string",
-        }),
-        defineField({
-          name: "quality",
-          title: "Video Quality",
-          type: "string",
-          options: {
-            list: [
-              { title: "HD", value: "HD" },
-              { title: "Full HD", value: "FHD" },
-              { title: "4K", value: "4K" },
-              { title: "HD/FHD/4K", value: "mixed" },
-            ],
-          },
-        }),
-        defineField({
-          name: "devices",
-          title: "Number of Devices",
-          type: "string",
-        }),
-        defineField({
-          name: "support",
-          title: "Support Level",
-          type: "string",
-          options: {
-            list: [
-              { title: "24/7", value: "24_7" },
-              { title: "Business Hours", value: "business" },
-              { title: "Email Only", value: "email" },
-            ],
-          },
-        }),
-      ],
-    }),
   ],
   preview: {
     select: {
