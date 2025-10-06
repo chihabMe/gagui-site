@@ -59,7 +59,7 @@ export default async function Home() {
         {/* <ContactSection /> */}
       </main>
       <Footer siteSettings={siteSettings} />
-      <WhatsAppFloat phoneNumber={siteSettings?.contactInfo?.whatsapp ?? ""} />
+      <WhatsAppFloat phoneNumber={siteSettings?.contactInfo?.phone ?? ""} />
     </div>
   );
 }
