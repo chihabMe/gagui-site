@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ import {
   Star,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { usePostHogCapture } from "@/hooks/use-posthog";
 import {
   submitSubscription,
   type SubscriptionFormData,
@@ -59,6 +60,21 @@ export function SubscriptionModal({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
+  const capture = usePostHogCapture();
+
+  // Track modal open
+  useEffect(() => {
+    if (isOpen && plan) {
+      capture("subscription_modal_opened", {
+        plan_id: plan.id,
+        plan_name: plan.name,
+        plan_price: plan.price.amount,
+        plan_currency: plan.price.currency,
+        plan_period: plan.price.period,
+        is_popular_plan: plan.isPopular || false,
+      });
+    }
+  }, [isOpen, plan, capture]);
 
   const formatPrice = (price: PlanInfo["price"]) => {
     const currencySymbol: { [key: string]: string } = {
@@ -121,11 +137,29 @@ export function SubscriptionModal({
       planPrice: plan.price,
     };
 
+    // Track subscription attempt
+    capture("subscription_modal_submitted", {
+      plan_id: plan.id,
+      plan_name: plan.name,
+      plan_price: plan.price.amount,
+      plan_currency: plan.price.currency,
+      plan_period: plan.price.period,
+      is_popular_plan: plan.isPopular || false,
+    });
+
     startTransition(async () => {
       try {
         const result: ActionResult = await submitSubscription(submissionData);
 
         if (result.success && result.whatsappUrl) {
+          // Track successful subscription
+          capture("subscription_success", {
+            plan_id: plan.id,
+            plan_name: plan.name,
+            plan_price: plan.price.amount,
+            redirect_to: "whatsapp",
+          });
+
           toast({
             title: "Demande envoyée avec succès !",
             description:
@@ -140,6 +174,12 @@ export function SubscriptionModal({
           setFormData({ name: "", email: "", phone: "" });
           setErrors({});
         } else {
+          // Track subscription error
+          capture("subscription_error", {
+            plan_id: plan.id,
+            error: result.error || "Unknown error",
+          });
+
           toast({
             title: "Erreur",
             description: result.error || "Une erreur est survenue",
@@ -148,6 +188,13 @@ export function SubscriptionModal({
         }
       } catch (error) {
         console.error("Submission error:", error);
+
+        // Track unexpected error
+        capture("subscription_unexpected_error", {
+          plan_id: plan.id,
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
+
         toast({
           title: "Erreur",
           description:
