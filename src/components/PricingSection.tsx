@@ -65,13 +65,13 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     setIsModalOpen(true);
   };
 
-  // Enhanced IPTV-themed fallback plans
+  // Enhanced streaming-themed fallback plans
   const fallbackPlans = [
     {
-      _id: "iptv-trial",
+      _id: "streaming-trial",
       _type: "pricing" as const,
       name: "Essai Gratuit",
-      description: "Découvrez notre service IPTV",
+      description: "Découvrez notre service de streaming",
       price: {
         amount: 0,
         currency: "EUR" as const,
@@ -93,9 +93,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "iptv-basic",
+      _id: "streaming-basic",
       _type: "pricing" as const,
-      name: "IPTV Basic",
+      name: "StreamTV Basic",
       description: "Abonnement standard",
       price: {
         amount: 45,
@@ -118,9 +118,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "iptv-premium",
+      _id: "streaming-premium",
       _type: "pricing" as const,
-      name: "IPTV Premium",
+      name: "StreamTV Premium",
       description: "Le plus populaire",
       price: {
         amount: 55,
@@ -144,9 +144,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "iptv-ultimate",
+      _id: "streaming-ultimate",
       _type: "pricing" as const,
-      name: "IPTV Ultimate",
+      name: "StreamTV Ultimate",
       description: "L'expérience complète",
       price: {
         amount: 75,
@@ -204,15 +204,15 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
           <div className="inline-flex items-center gap-3 glass-effect rounded-full px-6 py-3 mb-8 backdrop-blur-sm border border-primary/30">
             <Star className="h-5 w-5 text-primary animate-pulse" />
             <span className="text-sm font-medium text-primary uppercase tracking-wider">
-              Abonnements IPTV
+              Abonnements Premium
             </span>
           </div>
 
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-cyan-400 bg-clip-text text-transparent">
-            Nos Tarifs IPTV
+            Nos Tarifs Premium
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Choisissez l&apos;abonnement IPTV qui vous convient et profitez de
+            Choisissez l&apos;abonnement qui vous convient et profitez de
             milliers de chaînes en HD et 4K avec un service client 24/7
           </p>
         </motion.div>
@@ -348,7 +348,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
 
                   {/* Quantum Specs */}
                   <div className="flex-1 relative z-10 flex flex-col">
-                    {/* Features IPTV */}
+                    {/* Features */}
                     {plan.features && plan.features.length > 0 && (
                       <ul className="space-y-3 mb-6 flex-1 overflow-hidden">
                         {plan.features
@@ -560,7 +560,8 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
               </motion.h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
                 Notre équipe vous accompagne dans l&apos;installation et la
-                configuration de votre service IPTV sur tous vos appareils.
+                configuration de votre service de streaming sur tous vos
+                appareils.
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm">
                 <div className="flex items-center gap-2">

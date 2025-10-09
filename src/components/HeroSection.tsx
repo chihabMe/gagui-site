@@ -88,7 +88,7 @@ export function HeroSection() {
             >
               <Tv className="h-6 w-6 text-primary" />
               <span className="text-primary font-semibold uppercase tracking-wider">
-                IPTV VIP+
+                StreamTV VIP+
               </span>
             </motion.div>
 
@@ -110,7 +110,7 @@ export function HeroSection() {
                 Monde
               </motion.span>
               <motion.span className="block text-transparent relative">
-                {"IPTV".split("").map((letter, index) => (
+                {"Streaming".split("").map((letter, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 50, rotateX: -90 }}
@@ -153,8 +153,8 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12"
             >
-              Découvrez nos offres d&apos;abonnement IPTV vip+. Plus de 70000
-              chaînes, films et séries qualité 4K et service client 24/7
+              Découvrez nos offres d&apos;abonnement streaming premium. Plus de
+              70000 chaînes, films et séries qualité 4K et service client 24/7
             </motion.p>
 
             {/* Action Buttons */}

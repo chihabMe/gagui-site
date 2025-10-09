@@ -26,7 +26,7 @@ const fallbackArticles: FallbackArticle[] = [
   {
     title: "Neural Networks in Streaming Technology",
     excerpt:
-      "Découvrez comment l'IA révolutionne l'expérience de streaming IPTV avec des algorithmes quantiques avancés.",
+      "Découvrez comment l'IA révolutionne l'expérience de streaming avec des algorithmes avancés.",
     date: "15 Jan 2024",
     author: "Quantum Expert",
     image: "🧠",
@@ -54,14 +54,14 @@ const fallbackArticles: FallbackArticle[] = [
     slug: "cryptage-holographique",
   },
   {
-    title: "Réalité Augmentée et IPTV 5.0",
+    title: "Réalité Augmentée et Streaming 5.0",
     excerpt:
-      "L'évolution vers des expériences immersives avec la réalité augmentée quantique.",
+      "L'évolution vers des expériences immersives avec la réalité augmentée.",
     date: "8 Jan 2024",
     author: "Future Tech",
     image: "🌌",
     category: "Innovation",
-    slug: "realite-augmentee-iptv",
+    slug: "realite-augmentee-streaming",
   },
 ];
 

@@ -69,7 +69,7 @@ export function Header() {
               <div className="relative">
                 <Image
                   src="/logo.png"
-                  alt="Media IPTV Logo"
+                  alt="StreamTV Pro Logo"
                   width={480}
                   height={135}
                   priority

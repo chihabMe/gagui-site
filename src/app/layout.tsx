@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IPTV Pro - Service IPTV Premium",
+  title: "StreamTV Pro - Service de Streaming Premium",
   description:
-    "Découvrez le meilleur service IPTV avec des chaînes HD, une qualité premium et un support 24/7. Abonnez-vous maintenant !",
+    "Découvrez le meilleur service de streaming avec des chaînes HD, une qualité premium et un support 24/7. Abonnez-vous maintenant !",
   viewport: "width=device-width, initial-scale=1",
 };
 

@@ -6,7 +6,7 @@ import { ContentLibrarySection } from "@/components/ContentLibrarySection";
 import { PricingSection } from "@/components/PricingSection";
 import { HowItWorks } from "@/components/HowItWorks";
 import { DeviceCompatibility } from "@/components/DeviceCompatibility";
-import { IPTVPlayersSection } from "@/components/IPTVPlayersSection";
+import { StreamingPlayersSection } from "@/components/IPTVPlayersSection";
 import { Testimonials } from "@/components/Testimonials";
 // import { BlogSection } from "@/components/BlogSection";
 import { FAQSection } from "@/components/FAQSection";
@@ -52,7 +52,7 @@ export default async function Home() {
         {/* <WhyChooseUs /> */}
         <HowItWorks />
         <DeviceCompatibility />
-        <IPTVPlayersSection />
+        <StreamingPlayersSection />
         <Testimonials testimonials={testimonials} />
         <FAQSection faqs={faqs} />
         {/* <BlogSection posts={recentPosts} /> */}

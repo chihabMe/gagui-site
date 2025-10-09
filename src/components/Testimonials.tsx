@@ -13,7 +13,7 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Marie Benoît",
     rating: 5,
     testimonial:
-      "Excellent service ! La qualité d'image est parfaite et le support client très réactif. Je recommande vivement IPTV Pro.",
+      "Excellent service ! La qualité d'image est parfaite et le support client très réactif. Je recommande vivement StreamTV Pro.",
     avatar: undefined,
     platform: "other",
     isFeatured: true,
@@ -47,7 +47,7 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Sami Aouad",
     rating: 5,
     testimonial:
-      "Le meilleur service IPTV que j'ai testé. Aucun problème de buffering et les chaînes sont toujours disponibles.",
+      "Le meilleur service de streaming que j'ai testé. Aucun problème de buffering et les chaînes sont toujours disponibles.",
     avatar: undefined,
     platform: "other",
     isFeatured: true,

@@ -9,11 +9,11 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Chaînes IPTV Pro - Plus de 50,000 chaînes en HD/4K",
+  title: "Chaînes StreamTV Pro - Plus de 50,000 chaînes en HD/4K",
   description:
-    "Découvrez notre sélection complète de chaînes IPTV françaises et internationales. Films, séries, sport, documentaires et plus encore en haute qualité.",
+    "Découvrez notre sélection complète de chaînes françaises et internationales. Films, séries, sport, documentaires et plus encore en haute qualité.",
   keywords:
-    "chaînes IPTV, télévision française, chaînes sport, chaînes cinéma, IPTV France",
+    "chaînes TV, télévision française, chaînes sport, chaînes cinéma, streaming France",
 };
 
 export default async function ChannelsPage() {

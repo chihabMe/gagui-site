@@ -55,7 +55,7 @@ export function Footer({ siteSettings }: FooterProps) {
             <div className="mb-6">
               <Image
                 src="/logo.png"
-                alt="Media IPTV Logo"
+                alt="Media StreamTV Logo"
                 width={240}
                 height={68}
                 className="h-20 w-auto"
@@ -63,7 +63,7 @@ export function Footer({ siteSettings }: FooterProps) {
             </div>
             <p className="text-muted-foreground mb-8 text-lg">
               {siteSettings?.description ||
-                "Votre portail vers l'univers infini du streaming quantique avec 25 000+ chaînes et réalité augmentée."}
+                "Votre portail vers l'univers infini du streaming avec 25 000+ chaînes et expérience premium."}
             </p>
 
             {/* Dynamic Contact Info */}
@@ -177,7 +177,8 @@ export function Footer({ siteSettings }: FooterProps) {
         <div className="border-t border-background/20 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-background/70 text-sm mb-4 md:mb-0">
-              © 2024 {siteSettings?.title || "IPTV Pro"}. Tous droits réservés.
+              © 2024 {siteSettings?.title || "StreamTV Pro"}. Tous droits
+              réservés.
             </p>
             <div className="flex items-center space-x-4 text-sm text-background/70">
               <span>🇫🇷 Français</span>

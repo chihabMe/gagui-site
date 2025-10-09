@@ -172,9 +172,9 @@ export function ContentLibrarySection() {
               Accès instantané à tout ce contenu
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Avec un seul abonnement IPTV VIP+, débloquez l&apos;accès à notre
-              bibliothèque complète. Films récents, séries populaires et sports
-              en direct, tout en qualité HD/4K.
+              Avec un seul abonnement StreamTV VIP+, débloquez l&apos;accès à
+              notre bibliothèque complète. Films récents, séries populaires et
+              sports en direct, tout en qualité HD/4K.
             </p>
             <div className="flex justify-center">
               <Button

@@ -48,7 +48,7 @@ export async function submitSubscription(
       status: "pending",
       submittedAt: new Date().toISOString(),
       // Try to create reference if it's not a fallback plan
-      ...(validatedData.planId.startsWith("iptv-")
+      ...(validatedData.planId.startsWith("streaming-")
         ? {}
         : { selectedPlan: { _type: "reference", _ref: validatedData.planId } }),
     });
@@ -81,7 +81,7 @@ export async function submitSubscription(
     };
 
     // Create WhatsApp message
-    const whatsappMessage = `🔥 Nouvelle demande d'abonnement IPTV 🔥
+    const whatsappMessage = `🔥 Nouvelle demande d'abonnement StreamTV 🔥
 
 👤 *Nom:* ${validatedData.name}
 📧 *Email:* ${validatedData.email}
@@ -90,7 +90,7 @@ export async function submitSubscription(
 📺 *Plan choisi:* ${validatedData.planName}
 💰 *Prix:* ${formatPrice(validatedData.planPrice)}
 
-🚀 Bonjour ! Je souhaite souscrire à l'abonnement IPTV "${
+🚀 Bonjour ! Je souhaite souscrire à l'abonnement "${
       validatedData.planName
     }". Pouvez-vous me contacter pour finaliser mon inscription ?
 

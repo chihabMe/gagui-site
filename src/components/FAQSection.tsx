@@ -51,9 +51,9 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-1",
       _type: "faq",
-      question: "Qu'est-ce que l'IPTV et comment ça fonctionne ?",
+      question: "Qu'est-ce que le streaming TV et comment ça fonctionne ?",
       answer:
-        "L'IPTV (Internet Protocol Television) est une technologie qui permet de diffuser des chaînes de télévision via Internet. Contrairement à la télévision traditionnelle, l'IPTV utilise votre connexion Internet pour vous offrir des milliers de chaînes en haute qualité, accessible sur tous vos appareils.",
+        "Le streaming TV est une technologie qui permet de diffuser des chaînes de télévision via Internet. Contrairement à la télévision traditionnelle, notre service utilise votre connexion Internet pour vous offrir des milliers de chaînes en haute qualité, accessible sur tous vos appareils.",
       category: "general",
       order: 1,
       isActive: true,
@@ -61,7 +61,7 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-2",
       _type: "faq",
-      question: "Quelle vitesse Internet est nécessaire pour l'IPTV ?",
+      question: "Quelle vitesse Internet est nécessaire ?",
       answer:
         "Pour une expérience optimale, nous recommandons une connexion Internet d'au moins 10 Mbps pour la HD et 25 Mbps pour la 4K. Une connexion stable est plus importante que la vitesse pure. La plupart des connexions ADSL, fibre ou 4G conviennent parfaitement.",
       category: "technical",
@@ -71,9 +71,9 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-3",
       _type: "faq",
-      question: "Sur quels appareils puis-je regarder IPTV Pro ?",
+      question: "Sur quels appareils puis-je regarder StreamTV Pro ?",
       answer:
-        "IPTV Pro est compatible avec tous les appareils modernes : Smart TV (Samsung, LG, Android TV), box Android, iPhone, iPad, smartphones Android, PC, Mac, tablettes, Amazon Fire Stick, Roku, et bien d'autres. Une seule souscription pour tous vos appareils.",
+        "StreamTV Pro est compatible avec tous les appareils modernes : Smart TV (Samsung, LG, Android TV), box Android, iPhone, iPad, smartphones Android, PC, Mac, tablettes, Amazon Fire Stick, Roku, et bien d'autres. Une seule souscription pour tous vos appareils.",
       category: "installation",
       order: 3,
       isActive: true,
@@ -81,9 +81,9 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-4",
       _type: "faq",
-      question: "Est-ce légal d'utiliser IPTV ?",
+      question: "Est-ce légal d'utiliser ce service ?",
       answer:
-        "Oui, l'utilisation d'IPTV est parfaitement légale lorsque vous utilisez des services autorisés comme IPTV Pro. Nous proposons uniquement du contenu légal et respectons tous les droits de diffusion. Nos serveurs sont conformes aux réglementations européennes.",
+        "Oui, l'utilisation de notre service de streaming est parfaitement légale lorsque vous utilisez des services autorisés comme StreamTV Pro. Nous proposons uniquement du contenu légal et respectons tous les droits de diffusion. Nos serveurs sont conformes aux réglementations européennes.",
       category: "general",
       order: 4,
       isActive: true,
@@ -91,9 +91,9 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-5",
       _type: "faq",
-      question: "Comment installer IPTV Pro ?",
+      question: "Comment installer StreamTV Pro ?",
       answer:
-        "L'installation est très simple ! Après votre abonnement, vous recevrez un lien M3U et des codes d'accès. Il suffit de télécharger une application IPTV (VLC, IPTV Smarters, etc.), d'entrer vos codes, et c'est prêt ! Un guide détaillé vous sera fourni.",
+        "L'installation est très simple ! Après votre abonnement, vous recevrez un lien M3U et des codes d'accès. Il suffit de télécharger une application compatible (VLC, Smarters, etc.), d'entrer vos codes, et c'est prêt ! Un guide détaillé vous sera fourni.",
       category: "installation",
       order: 5,
       isActive: true,
@@ -159,8 +159,8 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
             Questions Fréquentes
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Trouvez rapidement les réponses à vos questions sur notre service
-            IPTV
+            Trouvez rapidement les réponses à vos questions sur notre service de
+            streaming
           </p>
         </motion.div>
 

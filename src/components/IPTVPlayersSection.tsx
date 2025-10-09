@@ -1,26 +1,26 @@
 "use client";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "motion/react"; // IGNORE
+import { motion } from "motion/react";
 import { Check, PlayCircle } from "lucide-react";
 
-const iptvPlayers = [
+const streamingPlayers = [
   {
-    name: "IPTV Smarters Pro",
+    name: "Smarters Pro",
     logo: "🎯",
     platforms: ["Android", "iOS", "Smart TV"],
     featured: true,
-    description: "Le lecteur IPTV le plus populaire et fiable",
+    description: "Le lecteur le plus populaire et fiable",
   },
   {
-    name: "XCIPTV",
+    name: "XC Player",
     logo: "⚡",
     platforms: ["Android", "iOS", "Smart TV"],
     featured: true,
     description: "Interface moderne avec fonctionnalités avancées",
   },
   {
-    name: "SmartOne IPTV",
+    name: "SmartOne Player",
     logo: "📱",
     platforms: ["Android", "iOS", "Android TV"],
     featured: true,
@@ -28,21 +28,21 @@ const iptvPlayers = [
   },
   {
     name: "IBO Player",
-    logo: "�",
+    logo: "📱",
     platforms: ["Android", "iOS", "Smart TV"],
     featured: true,
     description: "Lecteur simple et efficace",
   },
   {
-    name: "Smart IPTV",
-    logo: "�",
+    name: "Smart TV Player",
+    logo: "📺",
     platforms: ["Samsung TV", "LG TV"],
     featured: true,
     description: "Spécialement conçu pour Smart TV",
   },
 ];
 
-export function IPTVPlayersSection() {
+export function StreamingPlayersSection() {
   return (
     <section className="py-20 bg-background">
       <div className="container px-4">
@@ -58,17 +58,17 @@ export function IPTVPlayersSection() {
             Compatibilité
           </Badge>
           <h2 className="text-4xl font-bold mb-4">
-            Compatible avec tous les lecteurs IPTV
+            Compatible avec tous les lecteurs multimédia
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Notre service IPTV fonctionne parfaitement avec tous les lecteurs
-            IPTV populaires. Choisissez votre application préférée et commencez
-            à regarder instantanément.
+            Notre service de streaming fonctionne parfaitement avec tous les
+            lecteurs populaires. Choisissez votre application préférée et
+            commencez à regarder instantanément.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-          {iptvPlayers.map((player, index) => (
+          {streamingPlayers.map((player, index) => (
             <motion.div
               key={player.name}
               initial={{ opacity: 0, y: 30 }}
@@ -142,7 +142,7 @@ export function IPTVPlayersSection() {
               </div>
               <h4 className="font-semibold mb-2">Téléchargez l&apos;app</h4>
               <p className="text-sm opacity-90">
-                Installez votre lecteur IPTV préféré depuis l&apos;App Store
+                Installez votre lecteur préféré depuis l&apos;App Store
               </p>
             </div>
 

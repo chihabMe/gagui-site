@@ -151,7 +151,7 @@ export function QualitySection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative overflow-visible">
-              {/* Main Monde IPTV */}
+              {/* Main Streaming Hub */}
               <motion.div
                 className="glass-effect rounded-3xl p-8 border border-primary/20 shadow-cyber relative overflow-hidden"
                 whileHover={{ scale: 1.02 }}
