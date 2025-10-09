@@ -14,14 +14,12 @@ export function WhatsAppFloat({
   message = "Bonjour, je suis intéressé par vos services de streaming TV",
 }: WhatsAppFloatProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [_, setScrollDirection] = useState<"up" | "down">("down");
   const { scrollY } = useScroll();
 
   // Track scroll direction
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     const direction = latest > previous ? "down" : "up";
-    setScrollDirection(direction);
 
     // Show button after scrolling 300px down
     if (latest > 300 && direction === "down") {

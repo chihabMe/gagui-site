@@ -7,7 +7,6 @@ import {
   Twitter,
   Instagram,
   Youtube,
-  MessageCircle,
 } from "lucide-react";
 import Image from "next/image";
 import { type SiteSettings } from "@/sanity";

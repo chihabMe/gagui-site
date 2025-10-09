@@ -1,9 +1,9 @@
 "use client";
 
 // import { Card } from "@/components/ui/card";
-import { Zap, Brain, Atom, Orbit, Cpu, Network, Eye } from "lucide-react";
+// import { Zap, Brain, Atom, Orbit, Cpu, Network, Eye } from "lucide-react";
 // import { motion } from "motion/react";
-import { useState } from "react";
+// import { useState } from "react";
 
 export function WhyChooseUs() {
   // const [activeFeature, setActiveFeature] = useState<number | null>(null);
