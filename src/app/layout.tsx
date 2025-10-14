@@ -5,7 +5,8 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/next";
 
-const GA_MEASUREMENT_ID = "AW-17616595777";
+const GA_MEASUREMENT_ID = "AW-17644480160";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
