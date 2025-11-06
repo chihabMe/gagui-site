@@ -79,7 +79,7 @@ export async function submitSubscription(
     };
 
     // Create WhatsApp message
-    const whatsappMessage = `🔥 Nouvelle demande d'abonnement 4kverse 🔥
+    const whatsappMessage = `🔥 Nouvelle demande d'abonnement mondeTV 🔥
 
 👤 *Nom:* ${validatedData.name}
 📧 *Email:* ${validatedData.email}

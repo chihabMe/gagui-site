@@ -13,7 +13,7 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Marie Benoît",
     rating: 5,
     testimonial:
-      "Excellent service ! La qualité d'image est parfaite et le support client très réactif. Je recommande vivement 4kverse.",
+      "Excellent service ! La qualité d'image est parfaite et le support client très réactif. Je recommande vivement mondeTV.",
     avatar: undefined,
     platform: "other",
     isFeatured: true,

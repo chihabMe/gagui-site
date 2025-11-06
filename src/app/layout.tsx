@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "4kverse - Service Premium",
+  title: "mondeTV - Service Premium",
   description:
     "Découvrez le meilleur service avec des chaînes HD, une qualité premium et un support 24/7. Abonnez-vous maintenant !",
   viewport: "width=device-width, initial-scale=1",

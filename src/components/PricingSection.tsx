@@ -95,7 +95,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     {
       _id: "basic",
       _type: "pricing" as const,
-      name: "4kverse Basic",
+      name: "mondeTV Basic",
       description: "Abonnement standard",
       price: {
         amount: 45,
@@ -120,7 +120,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     {
       _id: "premium",
       _type: "pricing" as const,
-      name: "4kverse Premium",
+      name: "mondeTV Premium",
       description: "Le plus populaire",
       price: {
         amount: 55,
@@ -146,7 +146,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     {
       _id: "ultimate",
       _type: "pricing" as const,
-      name: "4kverse Ultimate",
+      name: "mondeTV Ultimate",
       description: "L'expérience complète",
       price: {
         amount: 75,

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "Chaînes 4kverse - Plus de 50,000 chaînes en HD/4K",
+  title: "Chaînes mondeTV - Plus de 50,000 chaînes en HD/4K",
   description:
     "Découvrez notre sélection complète de chaînes françaises et internationales. Films, séries, sport, documentaires et plus encore en haute qualité.",
   keywords:

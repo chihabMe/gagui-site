@@ -71,9 +71,9 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-3",
       _type: "faq",
-      question: "Sur quels appareils puis-je regarder 4kverse ?",
+      question: "Sur quels appareils puis-je regarder mondeTV ?",
       answer:
-        "4kverse est compatible avec tous les appareils modernes : Smart TV (Samsung, LG, Android TV), box Android, iPhone, iPad, smartphones Android, PC, Mac, tablettes, Amazon Fire Stick, Roku, et bien d'autres. Une seule souscription pour tous vos appareils.",
+        "mondeTV est compatible avec tous les appareils modernes : Smart TV (Samsung, LG, Android TV), box Android, iPhone, iPad, smartphones Android, PC, Mac, tablettes, Amazon Fire Stick, Roku, et bien d'autres. Une seule souscription pour tous vos appareils.",
       category: "installation",
       order: 3,
       isActive: true,
@@ -83,7 +83,7 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
       _type: "faq",
       question: "Est-ce légal d'utiliser ce service ?",
       answer:
-        "Oui, l'utilisation de notre service est parfaitement légale lorsque vous utilisez des services autorisés comme 4kverse. Nous proposons uniquement du contenu légal et respectons tous les droits de diffusion. Nos serveurs sont conformes aux réglementations européennes.",
+        "Oui, l'utilisation de notre service est parfaitement légale lorsque vous utilisez des services autorisés comme mondeTV. Nous proposons uniquement du contenu légal et respectons tous les droits de diffusion. Nos serveurs sont conformes aux réglementations européennes.",
       category: "general",
       order: 4,
       isActive: true,
@@ -91,7 +91,7 @@ export function FAQSection({ faqs = [] }: FAQSectionProps) {
     {
       _id: "fallback-5",
       _type: "faq",
-      question: "Comment installer 4kverse ?",
+      question: "Comment installer mondeTV ?",
       answer:
         "L'installation est très simple ! Après votre abonnement, vous recevrez un lien M3U et des codes d'accès. Il suffit de télécharger une application compatible (VLC, Smarters, etc.), d'entrer vos codes, et c'est prêt ! Un guide détaillé vous sera fourni.",
       category: "installation",

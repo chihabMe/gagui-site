@@ -32,7 +32,7 @@ export function HowItWorks() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Comment ça marche?</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Trois étapes simples pour profiter de votre abonnement 4kverse
+            Trois étapes simples pour profiter de votre abonnement mondeTV
           </p>
         </div>
 

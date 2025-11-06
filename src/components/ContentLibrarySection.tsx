@@ -172,7 +172,7 @@ export function ContentLibrarySection() {
               Accès instantané à tout ce contenu
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Avec un seul abonnement 4kverse VIP+, débloquez l&apos;accès à
+              Avec un seul abonnement mondeTV VIP+, débloquez l&apos;accès à
               notre bibliothèque complète. Films récents, séries populaires et
               sports en direct, tout en qualité HD/4K.
             </p>
