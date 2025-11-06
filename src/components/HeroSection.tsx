@@ -88,7 +88,7 @@ export function HeroSection() {
             >
               <Tv className="h-6 w-6 text-primary" />
               <span className="text-primary font-semibold uppercase tracking-wider">
-                mondeTV VIP+
+                Service VIP+
               </span>
             </motion.div>
 
@@ -110,7 +110,7 @@ export function HeroSection() {
                 Monde
               </motion.span>
               <motion.span className="block text-transparent relative">
-                {"mondeTV".split("").map((letter, index) => (
+                {"IPTV".split("").map((letter, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 50, rotateX: -90 }}
