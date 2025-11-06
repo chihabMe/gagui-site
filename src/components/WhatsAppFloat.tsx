@@ -11,7 +11,7 @@ interface WhatsAppFloatProps {
 
 export function WhatsAppFloat({
   phoneNumber,
-  message = "Bonjour, je suis intéressé par vos services de streaming TV",
+  message = "Bonjour, je suis intéressé par vos services TV",
 }: WhatsAppFloatProps) {
   const [isVisible, setIsVisible] = useState(false);
   const { scrollY } = useScroll();

@@ -7,7 +7,6 @@ import { Analytics } from "@vercel/analytics/next";
 
 const GA_MEASUREMENT_ID = "AW-17644480160";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "StreamTV Pro - Service de Streaming Premium",
+  title: "4kverse - Service Premium",
   description:
-    "Découvrez le meilleur service de streaming avec des chaînes HD, une qualité premium et un support 24/7. Abonnez-vous maintenant !",
+    "Découvrez le meilleur service avec des chaînes HD, une qualité premium et un support 24/7. Abonnez-vous maintenant !",
   viewport: "width=device-width, initial-scale=1",
 };
 
@@ -58,6 +57,22 @@ export default function RootLayout({
               gtag('config', '${GA_MEASUREMENT_ID}', {
                 page_path: window.location.pathname,
               });
+              
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) != 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17644492127/3cnXCKW3q7sbEN-qxt1B',
+                    'transaction_id': '',
+                    'event_callback': callback
+                });
+                return false;
+              }
+              
+              window.gtag_report_conversion = gtag_report_conversion;
             `,
           }}
         />

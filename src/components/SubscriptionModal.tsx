@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { usePostHogCapture } from "@/hooks/use-posthog";
+import { useGoogleAds } from "@/hooks/use-google-ads";
 import {
   submitSubscription,
   type SubscriptionFormData,
@@ -61,6 +62,7 @@ export function SubscriptionModal({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
   const capture = usePostHogCapture();
+  const { reportConversion } = useGoogleAds();
 
   // Track modal open
   useEffect(() => {
@@ -152,7 +154,8 @@ export function SubscriptionModal({
         const result: ActionResult = await submitSubscription(submissionData);
 
         if (result.success && result.whatsappUrl) {
-          // Track successful subscription
+          reportConversion();
+
           capture("subscription_success", {
             plan_id: plan.id,
             plan_name: plan.name,

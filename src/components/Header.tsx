@@ -69,7 +69,7 @@ export function Header() {
               <div className="relative">
                 <Image
                   src="/logo.png"
-                  alt="StreamTV Pro Logo"
+                  alt="4kverse Logo"
                   width={480}
                   height={135}
                   priority

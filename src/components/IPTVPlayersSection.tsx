@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "motion/react";
 import { Check, PlayCircle } from "lucide-react";
 
-const streamingPlayers = [
+const players = [
   {
     name: "Smarters Pro",
     logo: "🎯",
@@ -42,7 +42,7 @@ const streamingPlayers = [
   },
 ];
 
-export function StreamingPlayersSection() {
+export function PlayersSection() {
   return (
     <section className="py-20 bg-background">
       <div className="container px-4">
@@ -61,14 +61,14 @@ export function StreamingPlayersSection() {
             Compatible avec tous les lecteurs multimédia
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Notre service de streaming fonctionne parfaitement avec tous les
-            lecteurs populaires. Choisissez votre application préférée et
-            commencez à regarder instantanément.
+            Notre service fonctionne parfaitement avec tous les lecteurs
+            populaires. Choisissez votre application préférée et commencez à
+            regarder instantanément.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-          {streamingPlayers.map((player, index) => (
+          {players.map((player, index) => (
             <motion.div
               key={player.name}
               initial={{ opacity: 0, y: 30 }}

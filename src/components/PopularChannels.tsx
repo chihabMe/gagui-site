@@ -62,7 +62,7 @@ export function PopularChannels() {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Explorez notre galaxie de contenu avec plus de 70 000 chaînes
-            ultra-HD et une expérience de streaming révolutionnaire
+            ultra-HD et une expérience révolutionnaire
           </p>
         </motion.div>
 

@@ -15,7 +15,7 @@ const quantumFeatures = [
   {
     icon: Eye,
     title: "Vision 8K Quantique",
-    description: "Streaming neural ultra-haute définition",
+    description: "Ultra-haute définition",
     color: "from-purple-500 to-pink-500",
   },
   {
@@ -75,8 +75,8 @@ export function QualitySection() {
 
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
               Notre plateforme quantique révolutionnaire vous connecte à plus de
-              25 000 flux de données avec une technologie de streaming neural
-              ultra-avancée et une architecture de serveurs décentralisée.
+              25 000 flux de données avec une technologie ultra-avancée et une
+              architecture de serveurs décentralisée.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
@@ -151,7 +151,7 @@ export function QualitySection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative overflow-visible">
-              {/* Main Streaming Hub */}
+              {/* Main Hub */}
               <motion.div
                 className="glass-effect rounded-3xl p-8 border border-primary/20 shadow-cyber relative overflow-hidden"
                 whileHover={{ scale: 1.02 }}

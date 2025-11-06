@@ -5,9 +5,9 @@ import { Play, Zap, Shield, Globe, Star, Tv, Eye, Wifi } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-const streamingFeatures = [
+const features = [
   {
-    title: "Streaming 4K",
+    title: "Qualité 4K",
     icon: Eye,
     value: "Ultra HD",
     description: "Qualité exceptionnelle",
@@ -37,7 +37,7 @@ export function HeroSection() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % streamingFeatures.length);
+      setActiveFeature((prev) => (prev + 1) % features.length);
     }, 3000);
     return () => clearInterval(timer);
   }, []);
@@ -88,7 +88,7 @@ export function HeroSection() {
             >
               <Tv className="h-6 w-6 text-primary" />
               <span className="text-primary font-semibold uppercase tracking-wider">
-                StreamTV VIP+
+                4kverse VIP+
               </span>
             </motion.div>
 
@@ -110,7 +110,7 @@ export function HeroSection() {
                 Monde
               </motion.span>
               <motion.span className="block text-transparent relative">
-                {"Streaming".split("").map((letter, index) => (
+                {"4kverse".split("").map((letter, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 50, rotateX: -90 }}
@@ -153,8 +153,8 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12"
             >
-              Découvrez nos offres d&apos;abonnement streaming premium. Plus de
-              70000 chaînes, films et séries qualité 4K et service client 24/7
+              Découvrez nos offres d&apos;abonnement premium. Plus de 70000
+              chaînes, films et séries qualité 4K et service client 24/7
             </motion.p>
 
             {/* Action Buttons */}
@@ -203,8 +203,8 @@ export function HeroSection() {
           </div>
 
           {/* Interactive Feature Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
-            {streamingFeatures.map((feature, index) => (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 50 }}

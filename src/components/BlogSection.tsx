@@ -24,19 +24,19 @@ type ArticleType = PostPreview | FallbackArticle;
 // Fallback articles for when Sanity is not configured or fails
 const fallbackArticles: FallbackArticle[] = [
   {
-    title: "Neural Networks in Streaming Technology",
+    title: "Neural Networks in Technology",
     excerpt:
-      "Découvrez comment l'IA révolutionne l'expérience de streaming avec des algorithmes avancés.",
+      "Découvrez comment l'IA révolutionne l'expérience avec des algorithmes avancés.",
     date: "15 Jan 2024",
     author: "Quantum Expert",
     image: "🧠",
     category: "Technologie",
-    slug: "neural-networks-streaming",
+    slug: "neural-networks-technology",
   },
   {
     title: "Flux Quantiques: L'Avenir du Sport",
     excerpt:
-      "Explorez les nouveaux horizons du streaming sportif avec des connexions neurales ultra-rapides.",
+      "Explorez les nouveaux horizons du sport avec des connexions neurales ultra-rapides.",
     date: "12 Jan 2024",
     author: "Neural Analyst",
     image: "⚡",
@@ -54,14 +54,14 @@ const fallbackArticles: FallbackArticle[] = [
     slug: "cryptage-holographique",
   },
   {
-    title: "Réalité Augmentée et Streaming 5.0",
+    title: "Réalité Augmentée et Innovation 5.0",
     excerpt:
       "L'évolution vers des expériences immersives avec la réalité augmentée.",
     date: "8 Jan 2024",
     author: "Future Tech",
     image: "🌌",
     category: "Innovation",
-    slug: "realite-augmentee-streaming",
+    slug: "realite-augmentee-innovation",
   },
 ];
 
@@ -137,7 +137,7 @@ export function BlogSection({ posts = [] }: BlogSectionProps) {
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Explorez nos archives de connaissances quantiques et découvrez les
-            secrets du streaming neural de nouvelle génération
+            secrets de la technologie de nouvelle génération
           </p>
         </motion.div>
 
@@ -379,7 +379,7 @@ export function BlogSection({ posts = [] }: BlogSectionProps) {
               </motion.h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
                 Explorez notre base de données quantique complète avec des
-                milliers d&apos;articles sur les technologies neural-streaming.
+                milliers d&apos;articles sur les technologies.
               </p>
 
               <motion.div

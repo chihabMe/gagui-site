@@ -48,9 +48,7 @@ export async function submitSubscription(
       status: "pending",
       submittedAt: new Date().toISOString(),
       // Try to create reference if it's not a fallback plan
-      ...(validatedData.planId.startsWith("streaming-")
-        ? {}
-        : { selectedPlan: { _type: "reference", _ref: validatedData.planId } }),
+      ...(validatedData.planId ? { planName: validatedData.planId } : {}),
     });
 
     if (!subscriptionRequest) {
@@ -81,7 +79,7 @@ export async function submitSubscription(
     };
 
     // Create WhatsApp message
-    const whatsappMessage = `🔥 Nouvelle demande d'abonnement StreamTV 🔥
+    const whatsappMessage = `🔥 Nouvelle demande d'abonnement 4kverse 🔥
 
 👤 *Nom:* ${validatedData.name}
 📧 *Email:* ${validatedData.email}

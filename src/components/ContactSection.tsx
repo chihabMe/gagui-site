@@ -73,9 +73,9 @@ export function ContactSection({ siteSettings }: ContactSectionProps) {
       icon: Mail,
       title: "Email",
       description: "Envoyez-nous un email",
-      contact: siteSettings?.contactInfo?.email || "support@streamtvpro.fr",
+      contact: siteSettings?.contactInfo?.email || "support@4kverse.fr",
       href: `mailto:${
-        siteSettings?.contactInfo?.email || "support@streamtvpro.fr"
+        siteSettings?.contactInfo?.email || "support@4kverse.fr"
       }`,
       color: "from-blue-500 to-blue-600",
     },
@@ -232,7 +232,7 @@ export function ContactSection({ siteSettings }: ContactSectionProps) {
                 </h3>
                 <p className="text-muted-foreground mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                   Nous sommes disponibles pour répondre à toutes vos questions
-                  concernant nos services StreamTV Pro.
+                  concernant nos services 4kverse.
                 </p>
               </div>
 

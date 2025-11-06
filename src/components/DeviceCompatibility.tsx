@@ -25,7 +25,7 @@ export function DeviceCompatibility() {
       <div className="container px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
-            StreamTV Pro utilisable sur tous vos appareils
+            4kverse utilisable sur tous vos appareils
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Regardez vos contenus préférés où que vous soyez, sur n&apos;importe

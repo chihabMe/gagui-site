@@ -65,13 +65,13 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
     setIsModalOpen(true);
   };
 
-  // Enhanced streaming-themed fallback plans
+  // Enhanced fallback plans
   const fallbackPlans = [
     {
-      _id: "streaming-trial",
+      _id: "trial",
       _type: "pricing" as const,
       name: "Essai Gratuit",
-      description: "Découvrez notre service de streaming",
+      description: "Découvrez notre service",
       price: {
         amount: 0,
         currency: "EUR" as const,
@@ -93,9 +93,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "streaming-basic",
+      _id: "basic",
       _type: "pricing" as const,
-      name: "StreamTV Basic",
+      name: "4kverse Basic",
       description: "Abonnement standard",
       price: {
         amount: 45,
@@ -118,9 +118,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "streaming-premium",
+      _id: "premium",
       _type: "pricing" as const,
-      name: "StreamTV Premium",
+      name: "4kverse Premium",
       description: "Le plus populaire",
       price: {
         amount: 55,
@@ -144,9 +144,9 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
       ],
     },
     {
-      _id: "streaming-ultimate",
+      _id: "ultimate",
       _type: "pricing" as const,
-      name: "StreamTV Ultimate",
+      name: "4kverse Ultimate",
       description: "L'expérience complète",
       price: {
         amount: 75,
@@ -560,8 +560,7 @@ export function PricingSection({ pricingPlans = [] }: PricingSectionProps) {
               </motion.h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
                 Notre équipe vous accompagne dans l&apos;installation et la
-                configuration de votre service de streaming sur tous vos
-                appareils.
+                configuration de votre service sur tous vos appareils.
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
