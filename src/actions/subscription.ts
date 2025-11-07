@@ -5,6 +5,20 @@ import { getSiteSettings } from "@/sanity";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+// Helper function to check if a string looks like a valid Sanity document ID
+function isValidSanityDocumentId(id: string): boolean {
+  // Sanity document IDs are typically 20+ characters long and contain alphanumeric characters
+  // Exclude known fallback plan IDs
+  const fallbackPlanIds = ["trial", "basic", "premium", "ultimate"];
+
+  if (fallbackPlanIds.includes(id)) {
+    return false;
+  }
+
+  // Check if it looks like a Sanity document ID (long alphanumeric string)
+  return id.length >= 15 && /^[a-zA-Z0-9]+$/.test(id);
+}
+
 // Validation schema
 const subscriptionSchema = z.object({
   name: z
@@ -13,7 +27,7 @@ const subscriptionSchema = z.object({
     .max(100),
   email: z.string().email("Email invalide"),
   phone: z.string().min(8, "Numéro de téléphone invalide").max(20),
-  planId: z.string().min(1, "Plan requis"),
+  planId: z.string().optional(), // Made optional since fallback plans use hardcoded IDs
   planName: z.string().min(1, "Nom du plan requis"),
   planPrice: z.object({
     amount: z.number(),
@@ -47,8 +61,10 @@ export async function submitSubscription(
       planPrice: validatedData.planPrice,
       status: "pending",
       submittedAt: new Date().toISOString(),
-      // Try to create reference if it's not a fallback plan
-      ...(validatedData.planId ? { planName: validatedData.planId } : {}),
+      // Create reference to the pricing document only if planId is a valid Sanity document ID
+      ...(validatedData.planId && isValidSanityDocumentId(validatedData.planId)
+        ? { selectedPlan: { _type: "reference", _ref: validatedData.planId } }
+        : {}),
     });
 
     if (!subscriptionRequest) {

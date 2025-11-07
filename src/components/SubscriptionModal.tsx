@@ -134,7 +134,7 @@ export function SubscriptionModal({
       name: formData.name.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim(),
-      planId: plan.id,
+      planId: plan.id, // This will be the plan ID (could be fallback or Sanity document ID)
       planName: plan.name,
       planPrice: plan.price,
     };
