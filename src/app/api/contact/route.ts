@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/client";
+import { sendContactTelegramNotification } from "@/lib/telegram";
 
 interface ContactFormData {
   name: string;
@@ -43,6 +44,20 @@ export async function POST(request: NextRequest) {
 
     // Save to Sanity
     const result = await client.create(contactDoc);
+
+    // Send Telegram notification (non-blocking, won't break the submission response if it fails)
+    try {
+      await sendContactTelegramNotification({
+        id: result._id,
+        name: contactDoc.name,
+        email: contactDoc.email,
+        subject: contactDoc.subject,
+        message: contactDoc.message,
+        submittedAt: contactDoc.submittedAt,
+      });
+    } catch (telegramErr) {
+      console.error("[Telegram] Contact notification error:", telegramErr);
+    }
 
     return NextResponse.json(
       {

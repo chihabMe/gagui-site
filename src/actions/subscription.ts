@@ -2,6 +2,7 @@
 
 import { client } from "@/sanity/client";
 import { getSiteSettings } from "@/sanity";
+import { sendOrderTelegramNotification } from "@/lib/telegram";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -69,6 +70,21 @@ export async function submitSubscription(
 
     if (!subscriptionRequest) {
       throw new Error("Erreur lors de la création de la demande d'abonnement");
+    }
+
+    // Send Telegram notification (asynchronously, catches errors so flow isn't interrupted)
+    try {
+      await sendOrderTelegramNotification({
+        id: subscriptionRequest._id,
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        planName: validatedData.planName,
+        planPrice: validatedData.planPrice,
+        submittedAt: (subscriptionRequest as { submittedAt?: string }).submittedAt,
+      });
+    } catch (telegramErr) {
+      console.error("[Telegram] Order notification error:", telegramErr);
     }
 
     // Format price for WhatsApp message
