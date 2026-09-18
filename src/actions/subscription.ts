@@ -1,24 +1,10 @@
 "use server";
 
-import { client } from "@/sanity/client";
+import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/sanity";
 import { sendOrderTelegramNotification } from "@/lib/telegram";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-
-// Helper function to check if a string looks like a valid Sanity document ID
-function isValidSanityDocumentId(id: string): boolean {
-  // Sanity document IDs are typically 20+ characters long and contain alphanumeric characters
-  // Exclude known fallback plan IDs
-  const fallbackPlanIds = ["trial", "basic", "premium", "ultimate"];
-
-  if (fallbackPlanIds.includes(id)) {
-    return false;
-  }
-
-  // Check if it looks like a Sanity document ID (long alphanumeric string)
-  return id.length >= 15 && /^[a-zA-Z0-9]+$/.test(id);
-}
 
 // Validation schema
 const subscriptionSchema = z.object({
@@ -28,7 +14,7 @@ const subscriptionSchema = z.object({
     .max(100),
   email: z.string().email("Email invalide"),
   phone: z.string().min(8, "Numéro de téléphone invalide").max(20),
-  planId: z.string().optional(), // Made optional since fallback plans use hardcoded IDs
+  planId: z.string().optional(),
   planName: z.string().min(1, "Nom du plan requis"),
   planPrice: z.object({
     amount: z.number(),
@@ -52,20 +38,30 @@ export async function submitSubscription(
     // Validate the form data
     const validatedData = subscriptionSchema.parse(formData);
 
-    // Create subscription request in Sanity
-    const subscriptionRequest = await client.create({
-      _type: "subscriptionRequest",
-      name: validatedData.name,
-      email: validatedData.email,
-      phone: validatedData.phone,
-      planName: validatedData.planName,
-      planPrice: validatedData.planPrice,
-      status: "pending",
-      submittedAt: new Date().toISOString(),
-      // Create reference to the pricing document only if planId is a valid Sanity document ID
-      ...(validatedData.planId && isValidSanityDocumentId(validatedData.planId)
-        ? { selectedPlan: { _type: "reference", _ref: validatedData.planId } }
-        : {}),
+    // Resolve matching pricing plan in database if ID is provided
+    let matchedPlan = null;
+    if (validatedData.planId) {
+      matchedPlan = await prisma.pricingPlan.findFirst({
+        where: {
+          OR: [
+            { id: validatedData.planId },
+            { sanityId: validatedData.planId },
+          ],
+        },
+      });
+    }
+
+    // Create subscription request in Neon DB
+    const subscriptionRequest = await prisma.subscriptionRequest.create({
+      data: {
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        planName: validatedData.planName,
+        planPrice: validatedData.planPrice,
+        status: "PENDING",
+        selectedPlanId: matchedPlan ? matchedPlan.id : null,
+      },
     });
 
     if (!subscriptionRequest) {
@@ -75,13 +71,13 @@ export async function submitSubscription(
     // Send Telegram notification (asynchronously, catches errors so flow isn't interrupted)
     try {
       await sendOrderTelegramNotification({
-        id: subscriptionRequest._id,
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        planName: validatedData.planName,
+        id: subscriptionRequest.id,
+        name: subscriptionRequest.name,
+        email: subscriptionRequest.email,
+        phone: subscriptionRequest.phone,
+        planName: subscriptionRequest.planName,
         planPrice: validatedData.planPrice,
-        submittedAt: (subscriptionRequest as { submittedAt?: string }).submittedAt,
+        submittedAt: subscriptionRequest.submittedAt.toISOString(),
       });
     } catch (telegramErr) {
       console.error("[Telegram] Order notification error:", telegramErr);
@@ -129,7 +125,7 @@ Merci ! 😊`;
     // Encode message for WhatsApp URL
     const encodedMessage = encodeURIComponent(whatsappMessage);
 
-    // Get WhatsApp number from Sanity siteSettings
+    // Get WhatsApp number from siteSettings
     const siteSettings = await getSiteSettings();
     const whatsappNumber =
       siteSettings?.contactInfo?.phone ||

@@ -1,0 +1,230 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// Admin Authentication & Roles
+// -------------------------------------------------------------
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  passwordHash String
+  role         AdminRole @default(ADMIN)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  SUPERADMIN
+  ADMIN
+  SUPPORT
+}
+
+// -------------------------------------------------------------
+// Site Settings & Global Config
+// -------------------------------------------------------------
+model SiteSettings {
+  id          String   @id @default("siteSettings")
+  title       String   @default("Monde streaming vip")
+  description String?
+  email       String?  @default("montetvsat@gmail.com")
+  phone       String?  @default("213562337936")
+  whatsapp    String?  @default("https://wa.me/213562337936")
+  address     String?
+  socialLinks Json?
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// -------------------------------------------------------------
+// IPTV Pricing Plans
+// -------------------------------------------------------------
+model PricingPlan {
+  id             String                @id @default(cuid())
+  sanityId       String?               @unique
+  name           String
+  description    String?
+  amount         Float
+  currency       String                @default("EUR")
+  period         String                @default("yearly")
+  isPopular      Boolean               @default(false)
+  isActive       Boolean               @default(true)
+  order          Int                   @default(0)
+  ctaText        String?               @default("S'abonner")
+  ctaUrl         String?
+  specifications Json?
+  features       Json?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  subscriptions  SubscriptionRequest[]
+
+  @@map("pricing_plans")
+}
+
+// -------------------------------------------------------------
+// Customer Subscription Requests / Orders
+// -------------------------------------------------------------
+model SubscriptionRequest {
+  id             String             @id @default(cuid())
+  sanityId       String?            @unique
+  name           String
+  email          String
+  phone          String
+  planName       String
+  planPrice      Json
+  status         SubscriptionStatus @default(PENDING)
+  notes          String?
+  submittedAt    DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  selectedPlanId String?
+  selectedPlan   PricingPlan?       @relation(fields: [selectedPlanId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([email])
+  @@index([submittedAt(sort: Desc)])
+  @@map("subscription_requests")
+}
+
+enum SubscriptionStatus {
+  PENDING
+  CONTACTED
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+// -------------------------------------------------------------
+// Contact Messages
+// -------------------------------------------------------------
+model ContactMessage {
+  id          String   @id @default(cuid())
+  sanityId    String?  @unique
+  name        String
+  email       String
+  subject     String
+  message     String
+  isRead      Boolean  @default(false)
+  status      String   @default("new")
+  submittedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isRead])
+  @@index([submittedAt(sort: Desc)])
+  @@map("contact_messages")
+}
+
+// -------------------------------------------------------------
+// FAQ Items
+// -------------------------------------------------------------
+model Faq {
+  id        String   @id @default(cuid())
+  sanityId  String?  @unique
+  question  String
+  answer    String
+  category  String   @default("general")
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+// -------------------------------------------------------------
+// Testimonials
+// -------------------------------------------------------------
+model Testimonial {
+  id         String   @id @default(cuid())
+  sanityId   String?  @unique
+  name       String
+  role       String?
+  content    String
+  rating     Int      @default(5)
+  avatarUrl  String?
+  isFeatured Boolean  @default(false)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+// -------------------------------------------------------------
+// Newsletter Subscribers
+// -------------------------------------------------------------
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  isActive     Boolean  @default(true)
+  subscribedAt DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
+
+// -------------------------------------------------------------
+// Blog (Posts, Authors, Categories)
+// -------------------------------------------------------------
+model Post {
+  id          String         @id @default(cuid())
+  sanityId    String?        @unique
+  title       String
+  slug        String         @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  publishedAt DateTime?
+  isPublished Boolean        @default(false)
+  isFeatured  Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  authorId    String?
+  author      Author?        @relation(fields: [authorId], references: [id])
+  categories  PostCategory[]
+
+  @@map("posts")
+}
+
+model Author {
+  id       String  @id @default(cuid())
+  sanityId String? @unique
+  name     String
+  slug     String  @unique
+  bio      String?
+  imageUrl String?
+  posts    Post[]
+
+  @@map("authors")
+}
+
+model Category {
+  id          String         @id @default(cuid())
+  sanityId    String?        @unique
+  title       String
+  slug        String         @unique
+  description String?
+  posts       PostCategory[]
+
+  @@map("categories")
+}
+
+model PostCategory {
+  postId     String
+  categoryId String
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+  @@map("post_categories")
+}

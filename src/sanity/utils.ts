@@ -1,24 +1,5 @@
+import { prisma } from "@/lib/prisma";
 import { client } from "./client";
-import {
-  postsQuery,
-  postBySlugQuery,
-  postSlugsQuery,
-  authorsQuery,
-  categoriesQuery,
-  postsByCategoryQuery,
-  postsByCategorySlugQuery,
-  postsByAuthorQuery,
-  newsletterSubscribersQuery,
-  newsletterByEmailQuery,
-  recentPostsQuery,
-  siteSettingsQuery,
-  pricingPlansQuery,
-  pricingPlanByIdQuery,
-  faqQuery,
-  faqByCategoryQuery,
-  testimonialsQuery,
-  featuredTestimonialsQuery,
-} from "./queries";
 import {
   Post,
   PostPreview,
@@ -31,258 +12,217 @@ import {
   Testimonial,
 } from "./types";
 
-// Fetch all posts
-export async function getPosts(): Promise<PostPreview[]> {
+// ============================================================================
+// Site Settings
+// ============================================================================
+
+export async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    return await client.fetch(
-      postsQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600, // Cache for 1 hour
-          tags: ["posts"],
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return [];
-  }
-}
+    const settings = await prisma.siteSettings.findFirst();
+    if (!settings) return null;
 
-// Fetch recent posts with limit
-export async function getRecentPosts(
-  limit: number = 4
-): Promise<PostPreview[]> {
-  try {
-    return await client.fetch(
-      recentPostsQuery,
-      { limit },
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["posts"],
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Error fetching recent posts:", error);
-    return [];
-  }
-}
-
-// Fetch a single post by slug
-export async function getPostBySlug(slug: string): Promise<Post | null> {
-  try {
-    return await client.fetch(
-      postBySlugQuery,
-      { slug },
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["posts", `post-${slug}`],
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Error fetching post by slug:", error);
-    return null;
-  }
-}
-
-// Fetch all post slugs (useful for static generation)
-export async function getPostSlugs(): Promise<string[]> {
-  try {
-    return await client.fetch(postSlugsQuery);
-  } catch (error) {
-    console.error("Error fetching post slugs:", error);
-    return [];
-  }
-}
-
-// Fetch all authors
-export async function getAuthors(): Promise<Author[]> {
-  try {
-    return await client.fetch(authorsQuery);
-  } catch (error) {
-    console.error("Error fetching authors:", error);
-    return [];
-  }
-}
-
-// Fetch all categories
-export async function getCategories(): Promise<Category[]> {
-  try {
-    return await client.fetch(categoriesQuery);
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    return [];
-  }
-}
-
-// Fetch a single category by slug
-export async function getCategoryBySlug(
-  slug: string
-): Promise<Category | null> {
-  try {
-    const categoryQuery = `*[_type == "category" && slug.current == $slug][0] {
-      _id,
-      title,
-      slug,
-      description
-    }`;
-    return await client.fetch(categoryQuery, { slug });
-  } catch (error) {
-    console.error("Error fetching category by slug:", error);
-    return null;
-  }
-}
-
-// Fetch posts by category
-export async function getPostsByCategory(
-  categoryId: string
-): Promise<PostPreview[]> {
-  try {
-    return await client.fetch(postsByCategoryQuery, { categoryId });
-  } catch (error) {
-    console.error("Error fetching posts by category:", error);
-    return [];
-  }
-}
-
-// Fetch posts by category slug
-export async function getPostsByCategorySlug(
-  categorySlug: string
-): Promise<PostPreview[]> {
-  try {
-    return await client.fetch(postsByCategorySlugQuery, { categorySlug });
-  } catch (error) {
-    console.error("Error fetching posts by category slug:", error);
-    return [];
-  }
-}
-
-// Fetch posts by author
-export async function getPostsByAuthor(
-  authorId: string
-): Promise<PostPreview[]> {
-  try {
-    return await client.fetch(postsByAuthorQuery, { authorId });
-  } catch (error) {
-    console.error("Error fetching posts by author:", error);
-    return [];
-  }
-}
-
-// Search posts by title, excerpt, or content
-export async function searchPosts(query: string): Promise<PostPreview[]> {
-  try {
-    const searchPattern = `*${query}*`;
-    const searchQuery = `*[_type == "post" && (title match "${searchPattern}" || pt::text(body) match "${searchPattern}")] | order(publishedAt desc) {
-      _id,
-      title,
-      slug,
-      author->{
-        name,
-        slug
-      },
-      mainImage,
-      categories[]->{
-        _id,
-        title,
-        slug
-      },
-      publishedAt,
-      "excerpt": array::join(string::split((pt::text(body))[0..255], "")[0..255], "") + "..."
-    }`;
-    return await client.fetch(searchQuery);
-  } catch (error) {
-    console.error("Error searching posts:", error);
-    return [];
-  }
-}
-
-// Get posts with pagination
-export async function getPostsPaginated(
-  page: number = 1,
-  pageSize: number = 6
-): Promise<{
-  posts: PostPreview[];
-  total: number;
-  totalPages: number;
-}> {
-  try {
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-
-    const paginatedQuery = `{
-      "posts": *[_type == "post"] | order(publishedAt desc) [$start...$end] {
-        _id,
-        title,
-        slug,
-        author->{
-          name,
-          slug
-        },
-        mainImage,
-        categories[]->{
-          _id,
-          title,
-          slug
-        },
-        publishedAt,
-        "excerpt": array::join(string::split((pt::text(body))[0..255], "")[0..255], "") + "..."
-      },
-      "total": count(*[_type == "post"])
-    }`;
-
-    const result = await client.fetch(paginatedQuery, { start, end });
     return {
-      posts: result.posts,
-      total: result.total,
-      totalPages: Math.ceil(result.total / pageSize),
+      _id: settings.id,
+      _type: "siteSettings",
+      title: settings.title,
+      description: settings.description || undefined,
+      contactInfo: {
+        email: settings.email || undefined,
+        phone: settings.phone || undefined,
+        whatsapp: settings.whatsapp || undefined,
+        address: settings.address || undefined,
+        socialLinks: (settings.socialLinks as Record<string, string>) || undefined,
+      },
     };
   } catch (error) {
-    console.error("Error fetching paginated posts:", error);
-    return { posts: [], total: 0, totalPages: 0 };
+    console.error("❌ [getSiteSettings] Error fetching from Prisma:", error);
+    return null;
   }
 }
 
-// Utility function to get image URL from Sanity
-export function getImageUrl(
-  source: { asset?: { _ref?: string } },
-  width?: number,
-  height?: number
-): string {
-  if (!source?.asset?._ref) return "";
+// ============================================================================
+// Pricing Plans
+// ============================================================================
 
-  const baseUrl = `https://cdn.sanity.io/images/${client.config().projectId}/${
-    client.config().dataset
-  }`;
-  const [, id, dimensions, format] = source.asset._ref.split("-");
+export async function getPricingPlans(): Promise<PricingPlan[]> {
+  try {
+    const plans = await prisma.pricingPlan.findMany({
+      where: { isActive: true },
+      orderBy: { order: "asc" },
+    });
 
-  let url = `${baseUrl}/${id}-${dimensions}.${format}`;
-
-  if (width || height) {
-    const params = new URLSearchParams();
-    if (width) params.append("w", width.toString());
-    if (height) params.append("h", height.toString());
-    params.append("fit", "crop");
-    url += `?${params.toString()}`;
+    return plans.map((plan) => ({
+      _id: plan.id,
+      _type: "pricing",
+      name: plan.name,
+      description: plan.description || undefined,
+      price: {
+        amount: plan.amount,
+        currency: plan.currency as "EUR" | "USD" | "MAD" | "GBP",
+        period: plan.period as "monthly" | "quarterly" | "yearly" | "lifetime",
+      },
+      features: (plan.features as { feature: string; included: boolean }[]) || [],
+      isPopular: plan.isPopular,
+      isActive: plan.isActive,
+      order: plan.order,
+      ctaText: plan.ctaText || "S'abonner",
+      ctaUrl: plan.ctaUrl || undefined,
+    }));
+  } catch (error) {
+    console.error("❌ [getPricingPlans] Error fetching from Prisma:", error);
+    return [];
   }
-
-  return url;
 }
 
-// Newsletter functions
+export async function getPricingPlanById(id: string): Promise<PricingPlan | null> {
+  try {
+    const plan = await prisma.pricingPlan.findFirst({
+      where: {
+        OR: [{ id }, { sanityId: id }],
+      },
+    });
+
+    if (!plan) return null;
+
+    return {
+      _id: plan.id,
+      _type: "pricing",
+      name: plan.name,
+      description: plan.description || undefined,
+      price: {
+        amount: plan.amount,
+        currency: plan.currency as "EUR" | "USD" | "MAD" | "GBP",
+        period: plan.period as "monthly" | "quarterly" | "yearly" | "lifetime",
+      },
+      features: (plan.features as { feature: string; included: boolean }[]) || [],
+      isPopular: plan.isPopular,
+      isActive: plan.isActive,
+      order: plan.order,
+      ctaText: plan.ctaText || "S'abonner",
+      ctaUrl: plan.ctaUrl || undefined,
+    };
+  } catch (error) {
+    console.error("❌ [getPricingPlanById] Error fetching from Prisma:", error);
+    return null;
+  }
+}
+
+// ============================================================================
+// FAQs
+// ============================================================================
+
+export async function getFAQ(): Promise<FAQ[]> {
+  try {
+    const faqs = await prisma.faq.findMany({
+      where: { isActive: true },
+      orderBy: { order: "asc" },
+    });
+
+    return faqs.map((faq) => ({
+      _id: faq.id,
+      _type: "faq",
+      question: faq.question,
+      answer: faq.answer,
+      category: faq.category as FAQ["category"],
+      isActive: faq.isActive,
+      order: faq.order,
+    }));
+  } catch (error) {
+    console.error("❌ [getFAQ] Error fetching from Prisma:", error);
+    return [];
+  }
+}
+
+export async function getFAQByCategory(category: string): Promise<FAQ[]> {
+  try {
+    const faqs = await prisma.faq.findMany({
+      where: { isActive: true, category },
+      orderBy: { order: "asc" },
+    });
+
+    return faqs.map((faq) => ({
+      _id: faq.id,
+      _type: "faq",
+      question: faq.question,
+      answer: faq.answer,
+      category: faq.category as FAQ["category"],
+      isActive: faq.isActive,
+      order: faq.order,
+    }));
+  } catch (error) {
+    console.error("❌ [getFAQByCategory] Error fetching from Prisma:", error);
+    return [];
+  }
+}
+
+// ============================================================================
+// Testimonials
+// ============================================================================
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  try {
+    const testimonials = await prisma.testimonial.findMany({
+      orderBy: { order: "asc" },
+    });
+
+    return testimonials.map((t) => ({
+      _id: t.id,
+      _type: "testimonial",
+      _createdAt: t.createdAt.toISOString(),
+      _updatedAt: t.updatedAt.toISOString(),
+      _rev: "1",
+      name: t.name,
+      location: t.role || undefined,
+      testimonial: t.content,
+      rating: t.rating,
+      isFeatured: t.isFeatured,
+      order: t.order,
+      submittedAt: t.createdAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error("❌ [getTestimonials] Error fetching from Prisma:", error);
+    return [];
+  }
+}
+
+export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
+  try {
+    const testimonials = await prisma.testimonial.findMany({
+      where: { isFeatured: true },
+      orderBy: { order: "asc" },
+    });
+
+    return testimonials.map((t) => ({
+      _id: t.id,
+      _type: "testimonial",
+      _createdAt: t.createdAt.toISOString(),
+      _updatedAt: t.updatedAt.toISOString(),
+      _rev: "1",
+      name: t.name,
+      location: t.role || undefined,
+      testimonial: t.content,
+      rating: t.rating,
+      isFeatured: t.isFeatured,
+      order: t.order,
+      submittedAt: t.createdAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error("❌ [getFeaturedTestimonials] Error fetching from Prisma:", error);
+    return [];
+  }
+}
+
+// ============================================================================
+// Newsletter
+// ============================================================================
+
 export async function subscribeToNewsletter(data: {
   email: string;
   source?: string;
 }): Promise<{ success: boolean; message: string; data?: Newsletter }> {
   try {
-    // Check if email already exists
-    const existingSubscriber = await client.fetch(newsletterByEmailQuery, {
-      email: data.email,
+    const existingSubscriber = await prisma.newsletterSubscriber.findUnique({
+      where: { email: data.email },
     });
 
     if (existingSubscriber) {
@@ -292,32 +232,43 @@ export async function subscribeToNewsletter(data: {
           message: "This email is already subscribed to our newsletter.",
         };
       } else {
-        // Reactivate subscription
-        const updated = await client
-          .patch(existingSubscriber._id)
-          .set({ isActive: true, subscribedAt: new Date().toISOString() })
-          .commit();
+        const updated = await prisma.newsletterSubscriber.update({
+          where: { email: data.email },
+          data: { isActive: true, subscribedAt: new Date() },
+        });
         return {
           success: true,
           message: "Welcome back! Your subscription has been reactivated.",
-          data: updated as unknown as Newsletter,
+          data: {
+            _id: updated.id,
+            _type: "newsletter",
+            email: updated.email,
+            subscribedAt: updated.subscribedAt.toISOString(),
+            isActive: updated.isActive,
+            source: (data.source as Newsletter["source"]) || "website",
+          },
         };
       }
     }
 
-    // Create new subscription
-    const newSubscriber = await client.create({
-      _type: "newsletter",
-      email: data.email,
-      source: data.source || "website",
-      subscribedAt: new Date().toISOString(),
-      isActive: true,
+    const created = await prisma.newsletterSubscriber.create({
+      data: {
+        email: data.email,
+        isActive: true,
+      },
     });
 
     return {
       success: true,
       message: "Successfully subscribed to our newsletter!",
-      data: newSubscriber as unknown as Newsletter,
+      data: {
+        _id: created.id,
+        _type: "newsletter",
+        email: created.email,
+        subscribedAt: created.subscribedAt.toISOString(),
+        isActive: created.isActive,
+        source: (data.source as Newsletter["source"]) || "website",
+      },
     };
   } catch (error) {
     console.error("Error subscribing to newsletter:", error);
@@ -330,7 +281,18 @@ export async function subscribeToNewsletter(data: {
 
 export async function getNewsletterSubscribers(): Promise<Newsletter[]> {
   try {
-    return await client.fetch(newsletterSubscribersQuery);
+    const subscribers = await prisma.newsletterSubscriber.findMany({
+      orderBy: { subscribedAt: "desc" },
+    });
+
+    return subscribers.map((s) => ({
+      _id: s.id,
+      _type: "newsletter",
+      email: s.email,
+      subscribedAt: s.subscribedAt.toISOString(),
+      isActive: s.isActive,
+      source: "website",
+    }));
   } catch (error) {
     console.error("Error fetching newsletter subscribers:", error);
     return [];
@@ -341,188 +303,382 @@ export async function checkEmailSubscription(
   email: string
 ): Promise<Newsletter | null> {
   try {
-    return await client.fetch(newsletterByEmailQuery, { email });
+    const subscriber = await prisma.newsletterSubscriber.findUnique({
+      where: { email },
+    });
+
+    if (!subscriber) return null;
+
+    return {
+      _id: subscriber.id,
+      _type: "newsletter",
+      email: subscriber.email,
+      subscribedAt: subscriber.subscribedAt.toISOString(),
+      isActive: subscriber.isActive,
+      source: "website",
+    };
   } catch (error) {
     console.error("Error checking email subscription:", error);
     return null;
   }
 }
 
-// Fetch site settings (contact info, etc.)
-export async function getSiteSettings(): Promise<SiteSettings | null> {
+// ============================================================================
+// Blog / Posts
+// ============================================================================
+
+export async function getPosts(): Promise<PostPreview[]> {
   try {
-    console.log("🔍 [getSiteSettings] Starting fetch...");
-
-    const settings = await client.fetch(
-      siteSettingsQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["site-settings"],
-        },
-      }
-    );
-
-    console.log(
-      "✅ [getSiteSettings] Fetched settings:",
-      settings ? "Found" : "Not found"
-    );
-
-    return settings;
-  } catch (error) {
-    console.error("❌ [getSiteSettings] Error:", error);
-    return null;
-  }
-}
-
-// Fetch all active pricing plans
-export async function getPricingPlans(): Promise<PricingPlan[]> {
-  try {
-    console.log("🔍 [getPricingPlans] Starting fetch...");
-    console.log("🔍 [getPricingPlans] Client config:", {
-      projectId: client.config().projectId,
-      dataset: client.config().dataset,
+    const posts = await prisma.post.findMany({
+      where: { isPublished: true },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
     });
-    console.log("🔍 [getPricingPlans] Query:", pricingPlansQuery);
 
-    const plans = await client.fetch(
-      pricingPlansQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["pricing"],
-        },
-      }
-    );
-
-    return plans;
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
   } catch (error) {
-    console.error("❌ [getPricingPlans] Error fetching pricing plans:", error);
+    console.error("Error fetching posts:", error);
     return [];
   }
 }
 
-// Fetch a specific pricing plan by ID
-export async function getPricingPlanById(
-  id: string
-): Promise<PricingPlan | null> {
+export async function getRecentPosts(limit: number = 4): Promise<PostPreview[]> {
   try {
-    return await client.fetch(
-      pricingPlanByIdQuery,
-      { id },
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["pricing", `pricing-${id}`],
-        },
-      }
-    );
+    const posts = await prisma.post.findMany({
+      where: { isPublished: true },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
   } catch (error) {
-    console.error("Error fetching pricing plan by ID:", error);
+    console.error("Error fetching recent posts:", error);
+    return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  try {
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: { author: true, categories: { include: { category: true } } },
+    });
+
+    if (!post) return null;
+
+    return {
+      _id: post.id,
+      _type: "post",
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author
+        ? {
+            _id: post.author.id,
+            _type: "author",
+            name: post.author.name,
+            slug: { current: post.author.slug },
+          }
+        : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        _type: "category",
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      body: [],
+    };
+  } catch (error) {
+    console.error("Error fetching post by slug:", error);
     return null;
   }
 }
 
-// Fetch all active FAQ items
-export async function getFAQ(): Promise<FAQ[]> {
+export async function getPostSlugs(): Promise<string[]> {
   try {
-    console.log("🔍 [getFAQ] Starting fetch...");
-
-    const faqs = await client.fetch(
-      faqQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["faq"],
-        },
-      }
-    );
-
-    console.log("✅ [getFAQ] Fetched:", faqs.length, "FAQ items");
-
-    return faqs;
+    const posts = await prisma.post.findMany({
+      where: { isPublished: true },
+      select: { slug: true },
+    });
+    return posts.map((p) => p.slug);
   } catch (error) {
-    console.error("❌ [getFAQ] Error:", error);
+    console.error("Error fetching post slugs:", error);
     return [];
   }
 }
 
-// Fetch FAQ items by category
-export async function getFAQByCategory(category: string): Promise<FAQ[]> {
+export async function getAuthors(): Promise<Author[]> {
   try {
-    return await client.fetch(
-      faqByCategoryQuery,
-      { category },
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["faq", `faq-${category}`],
-        },
-      }
-    );
+    const authors = await prisma.author.findMany();
+    return authors.map((a) => ({
+      _id: a.id,
+      _type: "author",
+      name: a.name,
+      slug: { current: a.slug },
+    }));
   } catch (error) {
-    console.error("Error fetching FAQ by category:", error);
+    console.error("Error fetching authors:", error);
     return [];
   }
 }
 
-// Fetch all active testimonials
-export async function getTestimonials(): Promise<Testimonial[]> {
+export async function getCategories(): Promise<Category[]> {
   try {
-    console.log("🔍 [getTestimonials] Starting fetch...");
-
-    const testimonials = await client.fetch(
-      testimonialsQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["testimonials"],
-        },
-      }
-    );
-
-    console.log(
-      "✅ [getTestimonials] Fetched:",
-      testimonials.length,
-      "testimonials"
-    );
-
-    return testimonials;
+    const categories = await prisma.category.findMany();
+    return categories.map((c) => ({
+      _id: c.id,
+      _type: "category",
+      title: c.title,
+      slug: { current: c.slug },
+      description: c.description || undefined,
+    }));
   } catch (error) {
-    console.error("❌ [getTestimonials] Error:", error);
+    console.error("Error fetching categories:", error);
     return [];
   }
 }
 
-// Fetch featured testimonials only
-export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
   try {
-    console.log("🔍 [getFeaturedTestimonials] Starting fetch...");
-
-    const testimonials = await client.fetch(
-      featuredTestimonialsQuery,
-      {},
-      {
-        next: {
-          revalidate: 3600,
-          tags: ["testimonials"],
-        },
-      }
-    );
-
-    console.log(
-      "✅ [getFeaturedTestimonials] Fetched:",
-      testimonials.length,
-      "featured testimonials"
-    );
-
-    return testimonials;
+    const category = await prisma.category.findUnique({
+      where: { slug },
+    });
+    if (!category) return null;
+    return {
+      _id: category.id,
+      _type: "category",
+      title: category.title,
+      slug: { current: category.slug },
+      description: category.description || undefined,
+    };
   } catch (error) {
-    console.error("❌ [getFeaturedTestimonials] Error:", error);
+    console.error("Error fetching category by slug:", error);
+    return null;
+  }
+}
+
+export async function getPostsByCategory(categoryId: string): Promise<PostPreview[]> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        isPublished: true,
+        categories: { some: { categoryId } },
+      },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
+  } catch (error) {
+    console.error("Error fetching posts by category:", error);
     return [];
+  }
+}
+
+export async function getPostsByCategorySlug(categorySlug: string): Promise<PostPreview[]> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        isPublished: true,
+        categories: { some: { category: { slug: categorySlug } } },
+      },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
+  } catch (error) {
+    console.error("Error fetching posts by category slug:", error);
+    return [];
+  }
+}
+
+export async function getPostsByAuthor(authorId: string): Promise<PostPreview[]> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        isPublished: true,
+        authorId,
+      },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
+  } catch (error) {
+    console.error("Error fetching posts by author:", error);
+    return [];
+  }
+}
+
+export async function searchPosts(query: string): Promise<PostPreview[]> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        isPublished: true,
+        OR: [
+          { title: { contains: query, mode: "insensitive" } },
+          { excerpt: { contains: query, mode: "insensitive" } },
+          { content: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      include: { author: true, categories: { include: { category: true } } },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    return posts.map((post) => ({
+      _id: post.id,
+      title: post.title,
+      slug: { current: post.slug },
+      author: post.author ? { name: post.author.name } : undefined,
+      categories: post.categories.map((c) => ({
+        _id: c.category.id,
+        title: c.category.title,
+        slug: { current: c.category.slug },
+      })),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+      excerpt: post.excerpt || undefined,
+    }));
+  } catch (error) {
+    console.error("Error searching posts:", error);
+    return [];
+  }
+}
+
+export async function getPostsPaginated(
+  page: number = 1,
+  pageSize: number = 6
+): Promise<{
+  posts: PostPreview[];
+  total: number;
+  totalPages: number;
+}> {
+  try {
+    const skip = (page - 1) * pageSize;
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        where: { isPublished: true },
+        include: { author: true, categories: { include: { category: true } } },
+        orderBy: { publishedAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+      prisma.post.count({ where: { isPublished: true } }),
+    ]);
+
+    return {
+      posts: posts.map((post) => ({
+        _id: post.id,
+        title: post.title,
+        slug: { current: post.slug },
+        author: post.author ? { name: post.author.name } : undefined,
+        categories: post.categories.map((c) => ({
+          _id: c.category.id,
+          title: c.category.title,
+          slug: { current: c.category.slug },
+        })),
+        publishedAt: post.publishedAt ? post.publishedAt.toISOString() : post.createdAt.toISOString(),
+        excerpt: post.excerpt || undefined,
+      })),
+      total,
+      totalPages: Math.ceil(total / pageSize),
+    };
+  } catch (error) {
+    console.error("Error fetching paginated posts:", error);
+    return { posts: [], total: 0, totalPages: 0 };
+  }
+}
+
+// ============================================================================
+// Helpers
+// ============================================================================
+
+export function getImageUrl(
+  source: { asset?: { _ref?: string } },
+  width?: number,
+  height?: number
+): string {
+  if (!source?.asset?._ref) return "";
+
+  try {
+    const baseUrl = `https://cdn.sanity.io/images/${client.config().projectId}/${
+      client.config().dataset
+    }`;
+    const [, id, dimensions, format] = source.asset._ref.split("-");
+
+    let url = `${baseUrl}/${id}-${dimensions}.${format}`;
+
+    if (width || height) {
+      const params = new URLSearchParams();
+      if (width) params.append("w", width.toString());
+      if (height) params.append("h", height.toString());
+      params.append("fit", "crop");
+      url += `?${params.toString()}`;
+    }
+
+    return url;
+  } catch {
+    return "";
   }
 }

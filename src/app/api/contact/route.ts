@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { client } from "@/sanity/client";
+import { prisma } from "@/lib/prisma";
 import { sendContactTelegramNotification } from "@/lib/telegram";
 
 interface ContactFormData {
@@ -30,30 +30,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create contact document in Sanity
-    const contactDoc = {
-      _type: "contact",
-      name: body.name.trim(),
-      email: body.email.trim().toLowerCase(),
-      subject: body.subject.trim(),
-      message: body.message.trim(),
-      isRead: false,
-      submittedAt: new Date().toISOString(),
-      status: "new",
-    };
+    const trimmedName = body.name.trim();
+    const trimmedEmail = body.email.trim().toLowerCase();
+    const trimmedSubject = body.subject.trim();
+    const trimmedMessage = body.message.trim();
 
-    // Save to Sanity
-    const result = await client.create(contactDoc);
+    // Save contact message to Neon DB via Prisma
+    const messageRecord = await prisma.contactMessage.create({
+      data: {
+        name: trimmedName,
+        email: trimmedEmail,
+        subject: trimmedSubject,
+        message: trimmedMessage,
+        isRead: false,
+        status: "new",
+      },
+    });
 
     // Send Telegram notification (non-blocking, won't break the submission response if it fails)
     try {
       await sendContactTelegramNotification({
-        id: result._id,
-        name: contactDoc.name,
-        email: contactDoc.email,
-        subject: contactDoc.subject,
-        message: contactDoc.message,
-        submittedAt: contactDoc.submittedAt,
+        id: messageRecord.id,
+        name: messageRecord.name,
+        email: messageRecord.email,
+        subject: messageRecord.subject,
+        message: messageRecord.message,
+        submittedAt: messageRecord.submittedAt.toISOString(),
       });
     } catch (telegramErr) {
       console.error("[Telegram] Contact notification error:", telegramErr);
@@ -63,7 +65,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Message envoyé avec succès",
-        id: result._id,
+        id: messageRecord.id,
       },
       { status: 201 }
     );
